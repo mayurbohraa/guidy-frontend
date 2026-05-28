@@ -1,0 +1,2156 @@
+ /* Main logo page */
+
+.mainlogo {
+  align-items: center;
+  justify-content: center;
+  display: grid;
+}
+
+.mainlogo .logo {
+  height: 80px;
+  width: 100%;
+  margin-bottom: -60%;
+}
+
+.mainlogo .laptop {
+  width: 100%;
+  height: 65%;
+}
+
+/* Pop Up page */
+.popup-box {
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.popup-box .box {
+  position: relative;
+  width: 50%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: 15%;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding: 20px;
+  overflow: auto;
+}
+
+.popup-box .close-icon {
+  content: 'x';
+  cursor: pointer;
+  position: fixed;
+  right: calc(25% - 30px);
+  top: calc(100vh - 65vh - 33px);
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  font-size: 20px;
+  color: #C22327;
+}
+
+/* logout page */
+
+.logout{
+  text-align: center;
+  margin-top: 15%;
+  font-size: 30px;
+}
+
+.logout button{
+  box-sizing: border-box;
+  width: 283px;
+  height: 32px;
+  background: #C22327;
+  color: white;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  font-weight: 600;
+  outline: 0;
+  cursor: pointer;
+}
+
+/* Login Page */
+
+.login {
+  grid-template-columns: auto auto;
+  display: grid;
+}
+
+/* Login page -> login Form */
+
+.login-form {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.login-form form,
+.login-form .details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.login-form form input {
+  box-sizing: border-box;
+  width: 383px;
+  height: 44px;
+  padding: 5px 10px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+}
+
+.login-form>h1 {
+  font-weight: 400;
+  font-size: 61px;
+  line-height: 74px;
+}
+
+.login-form form button {
+  box-sizing: border-box;
+  width: 283px;
+  height: 32px;
+  background: #C22327;
+  border: 2px solid #000000;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  font-weight: 600;
+  outline: 0;
+  cursor: pointer;
+}
+
+.login-form form button:hover {
+  width: 286px;
+  height: 35px;
+}
+
+.login-navigation .navsignup {
+  color: black;
+}
+
+.navforgotpass {
+  color: black;
+  font-size: 15px;
+  margin-left: -70%;
+  margin-top: -5%;
+}
+
+/* Forgot Password page */
+
+.forgotpassword {
+  grid-template-columns: auto auto;
+  display: grid;
+}
+
+/* Forgot Password page -> forgot password form */
+
+.forgotpassword .fpform {
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.forgotpassword form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.forgotpassword form button {
+  box-sizing: border-box;
+  width: 200px;
+  height: 32px;
+  background: #C22327;
+  border: 2px solid #000000;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  font-weight: 600;
+  outline: 0;
+  cursor: pointer;
+}
+
+.forgotpassword form button:hover {
+  width: 205px;
+  height: 35px;
+}
+
+/* Reset Password Page */
+
+.resetpassword {
+  grid-template-columns: auto auto;
+  display: grid;
+}
+
+/* Reset Password page -> reset password form */
+
+.resetpassword .rpform {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.resetpassword .rpform form {
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.resetpassword .rpform form button {
+  box-sizing: border-box;
+  width: 200px;
+  height: 32px;
+  background: #C22327;
+  border: 2px solid #000000;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  font-weight: 600;
+  outline: 0;
+  cursor: pointer;
+}
+
+.resetpassword .rpform form button:hover {
+  width: 205px;
+  height: 35px;
+}
+
+
+/* Signup Page */
+
+.signup {
+  grid-template-columns: auto auto;
+  display: grid;
+}
+
+/* signup page -> signup form */
+
+.signup-form {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.signup-form form,
+.signup-form .details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.signup-form form input[type=text], input[type=password], input[type=email], input[type=tel] {
+  box-sizing: border-box;
+  width: 383px;
+  height: 44px;
+  padding: 5px 10px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+}
+
+.signup-form form .radio {
+  margin: 0px 0px 0px -42%;
+}
+
+.signup-form form .radiobtn {
+  margin-right: 30px;
+}
+
+.signup-form form button {
+  box-sizing: border-box;
+  width: 283px;
+  height: 32px;
+  background: #C22327;
+  border: 2px solid #000000;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  font-weight: 600;
+  outline: 0;
+  cursor: pointer;
+}
+
+.signup form button:hover {
+  width: 286px;
+  height: 35px;
+}
+
+.signup-navigation .navlogin {
+  color: black;
+}
+
+.errmsg {
+  background-color: brown;
+  color: white;
+  padding: 5px;
+  margin-bottom: -25px;
+  border-radius: 5px;
+}
+
+.offscreen {
+  display: none;
+}
+
+.instructions {
+  color: white;
+  background: black;
+  padding: 5px;
+  border-radius: 5px;
+  width: 90%;
+}
+
+.valid {
+  color: #50C878;
+  margin-top: 10px;
+  margin-left: -30px;
+  position: absolute;
+}
+
+.hide {
+  display: none;
+}
+
+.invalid {
+  position: absolute;
+  color: red;
+  margin-top: 10px;
+  margin-left: -30px;
+}
+
+/* sidebar page -> User, contributor and Admin*/
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 300ms ease;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border-right: 2px solid #000000;
+  height: 93vh;
+}
+
+.sidebar .logo {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  top: 1.5rem;
+}
+
+.sidebar .menu {
+  margin-top: 2.8rem;
+  display: block;
+  flex-direction: column;
+  gap: 1rem;
+  height: 74.3vh;
+  overflow: scroll;
+}
+
+.sidebar .menu::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar .menuItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 3rem;
+  position: relative;
+  transition: all 300ms ease;
+  font-size: 16px;
+  padding-left: 1rem;
+  color: black;
+  text-decoration: none;
+}
+
+.sidebar .menuItem:hover {
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.sidebar .active {
+  background: linear-gradient(90deg, #C22327 0%, rgba(194, 35, 39, 0.3) 100%);
+  color: white;
+}
+
+/* Navbar page -> User, contributor and Admin*/
+
+.navbar {
+  display: flex;
+  margin-top: 1.8rem;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+/* navbar page ->  searchbar */
+
+.navbar .searchbar {
+  position: fixed;
+  display: flex;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  width: 30%;
+  border-radius: 12px;
+}
+
+.navbar .searchbar>span {
+  padding: 5px;
+  color: #C22327;
+}
+
+.navbar .search-container{
+  width: 92.5%;
+}
+
+.searchbar .search-container>input {
+  width: 92.5%;
+  border-radius: 5px;
+  padding: 11px 0px 11px 0px;
+  background: transparent;
+  border: none;
+}
+
+.searchbar .search-container>input:focus {
+  outline: 0;
+}
+
+/* Navbar page -> Search Dropdrown */
+
+
+.searchbar .dropdown:empty {
+  border: none;
+}
+
+.searchbar .dropdown-row {
+  cursor: pointer;
+  padding: 3px 0;
+}
+
+/* Navbar page -> Notification*/
+
+.navbar .notification .dropbtn{
+  position: fixed;
+  display: flex;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  margin-left: 31%;
+  width: 2.8%;
+  cursor: pointer;
+}
+
+.navbar .notification .dropbtn>span {
+  padding: 5px 0px 5px 5px;
+  color:#C22327;;
+  
+}
+
+.navbar .notification .counter{
+  background: rgba(194, 35, 39, 0.6);
+  padding: 6px;
+  width:10px;
+  height:10px;
+  border-radius:100%;
+  font-size:20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: -10px;
+  margin-left: -16px;
+}
+
+.navbar .notification .counter>span{
+  color:black;
+  font-weight: bold;
+  position: relative;
+  top: -7px;
+}
+
+.navbar .notification .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.navbar .notification .notificationbox {
+  display: none;  
+  margin-top: 50px;
+  margin-left: 200px;
+  border-radius: 10px;
+  position: absolute;
+  background: #D77073;
+  border: 2px solid #000000;
+  padding: 0px 20px;
+  min-width: 80vh;
+  height: 300px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  text-decoration: none;
+  overflow: scroll;
+}
+
+.navbar .notificationbox ul{
+  background:white;
+  border-radius: 10px;
+  border: 2px solid #000000;
+}
+
+.navbar .notificationbox::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar .dropdown:focus-within .notificationbox {
+  display: block;
+}
+
+/* navbar -> profile  */
+
+.navbar .profile {
+  display: flex;
+  position: fixed;
+  font-weight: bold;
+  font-size: 22px;
+  gap: 1rem;
+  margin-left: 76%;
+}
+
+.navbar .profile .dropbtn>img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid #c3262a;
+  border-radius: 30px;
+}
+
+
+.navbar .profile .dropbtn>span {
+  color: black;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 17.5px;
+  text-align: left;
+}
+
+.navbar .profile .dropbtn>span>span {
+  color: black;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* navbar page -> profile drop down */
+
+.navbar .dropbtn {
+  border: none;
+  background: #c49498;
+  cursor: pointer;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.navbar .dropdown {
+  position: relative;
+  display: inline-block;
+  border: none;
+}
+
+.navbar .dropdown-content {
+  display: none;
+  margin-top: 6px;
+  border-radius: 10px;
+  position: absolute;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px   0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 12px 12px 12px 0px;
+  text-decoration: none;
+}
+
+.navbar .dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.navbar .dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+.navbar .menu2 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.navbar .menuItem2 {
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  gap: 1rem;
+  height: 2.5rem;
+  position: relative;
+  transition: all 300ms ease;
+  font-size: 15px;
+  text-decoration: none;
+  color: black;
+}
+
+.navbar .menuItem2:hover {
+  cursor: pointer;
+  font-size: 17px;
+  background: linear-gradient(90deg, #C22327 0%, rgba(194, 35, 39, 0.3) 100%);
+  color: white;
+}
+
+/* View Profile Page */
+
+.viewprofile>span {
+  color: black;
+  font-weight: bold;  
+  font-size: 30px;
+  position: relative;
+  top: 3%;
+  left: 2%;
+}
+
+.viewprofile form {
+  position: relative;
+  top: 30px;
+  margin: 1rem 3rem;
+}
+
+.viewprofile2 {
+  grid-template-columns: 30% auto;
+  display: grid;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.profilepicture img {
+  width: 70%;
+  height: 70%;
+}
+
+.profilepicture button {
+  background: #C22327;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-left: 60px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.viewprofile form table {
+  align-self: baseline;
+}
+
+.viewprofile form table tr td {
+  padding: 1.5rem;
+  font-weight: bold;
+}
+
+.viewprofile #back {
+  background: #C22327;
+  border: 2px solid #000000;
+  color: #000000;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 5px 50px;
+}
+
+/* Userdahsboard page */
+
+.userdashboard {
+  grid-template-columns: 13rem auto;
+  display: grid;
+}
+
+.userdashboard .userDash2 {
+  grid-template-rows: 10% auto;
+  display: grid;
+}
+
+/* Userdahsboard page -> DashBoard Page */
+
+.usrdashboard {
+  grid-template-columns: auto 30%;
+  display: grid;
+  margin: 10px 0px 0px 10px;
+  padding: 10px;
+  gap: 1rem;
+}
+
+.usrdashboard .part1 {
+  grid-template-rows: 72.5% 25%;
+  display: grid;
+  gap: 1rem;
+}
+
+.usrdashboard .part2 {
+
+  grid-template-rows: 35% auto;  
+  display: grid;
+  gap: 1rem;
+}
+
+/* Userdahsboard page -> Dashboard page -> SCPbox*/
+
+.SCPbox{
+  height: 4rem;
+  grid-template-rows: 50% 10% !important;
+}
+
+/* Userdahsboard page -> Dashboard page -> schedule box */
+
+.SCPbox .schedbox {
+  border-radius: 14px;
+  transition: all 300ms ease;
+  display: grid;
+  grid-template-columns: 39% 60%;
+  grid-column-gap: 0.5rem;
+  position: relative;
+  height: 330%;
+}
+
+.SCPbox .schedbox .sched>span {
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 10%;
+}
+
+.SCPbox .schedbox .sched {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow-y:scroll ;
+  /* height: 50% ; */
+}
+
+
+.SCPbox .schedbox .sched::-webkit-scrollbar {
+  display: none;
+}
+
+.SCPbox .schedbox .schedcourse {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 3rem;
+  transition: all 300ms ease;
+  font-size: 15px;
+  padding-left: 2rem;
+  margin-top: 10px;
+}
+
+.SCPbox .schedbox .schedcourse:hover {
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.SCPbox .schedbox .courseovr {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  padding: 8px;
+  /* max-height: 70%; */
+}
+
+.SCPbox .schedbox .courseovr>span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.SCPbox .schedbox .courseovrbox {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 12px;
+  overflow: scroll;
+  height: 120px;
+}
+
+.SCPbox .schedbox .courseovrbox::-webkit-scrollbar {
+  display: none;
+}
+
+.SCPbox .schedbox .hide {
+  display: none;
+}
+
+.SCPbox .schedbox .active {
+  background: linear-gradient(90deg, #C22327 0%, rgba(194, 35, 39, 0.3) 100%);
+  color: white;
+}
+
+
+/* Userdahsboard page -> dashboard page -> Performance bar box */
+
+.SCPbox .performancebarbox {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.SCPbox .performancebarbox>span {
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 4%;
+}
+
+/* Userdahsboard page -> dashboard page -> mytasks box */
+
+.mytasksbox {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.mytasksbox::-webkit-scrollbar {
+  display: none;
+}
+
+.mytasksbox>span {
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 4%;
+}
+
+/* Userdahsboard page -> dashboard page -> mytasks box ->  tasklistbox */
+
+.tasklistbox {
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+  position: fixed;
+  transition: all 300ms ease;
+  margin-top: 1rem;
+  width: 50%;
+  margin-left: 30px;
+  margin-right: 30px;
+  overflow: scroll;
+  max-height: 12%;
+}
+
+.tasklistbox::-webkit-scrollbar {
+  display: none;
+}
+
+.tasklistbox .tasks {
+  display: grid;
+  list-style-type: none;
+}
+
+/* Userdahsboard page -> dashboard  page -> mytasks box -> tasklist box -> taskitem box */
+
+.taskitembox .task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6em;
+  padding: .3em;
+  margin-right: 2.5rem;
+}
+
+.taskitembox .task-group {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+
+.taskitembox .label {
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.taskitembox .checkbox:checked {
+  accent-color: black;
+}
+
+.taskitembox .checkbox:hover {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+
+.taskitembox .checkbox:checked+label {
+  text-decoration: line-through;
+  color: #bdc4cd;
+}
+
+.taskitembox .task-group button {
+  border: none;
+  background: transparent;
+}
+
+.taskitembox .task-group button:hover {
+  width: 21px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.taskitembox .task-group button>span {
+  margin-left: -15px;
+}
+
+.taskitembox .task-group .update>span {
+  color: #C57BEF;
+}
+
+.taskitembox .task-group .delete>span {
+  color: red;
+}
+
+/* Userdahsboard page -> dashboard page -> overallprogress box */
+
+.overallprogressbox {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+}
+
+#overallprogressbox {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+
+#overallprogressbox>span {
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 6%;
+  margin-bottom: 1%;
+  margin-top: 10px;
+  display: flex;
+  width: 60%;
+}
+
+.OPgrid{
+  grid-template-columns: 50% auto;
+  display: grid;
+}
+
+.overallprogressbox .overallprogressboxform{
+  position: relative;
+  margin-top: 20px;
+}
+
+.overallprogressbox .overallprogressboxform select{
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 5px;
+}
+
+.overallprogressbox .overallprogressboxform button{
+  background: #C22327;
+  color: white;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.overallprogressbox .float {
+  animation-name: ani-float;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  width: 160px;
+  height: 160px;
+}
+
+@keyframes ani-float {
+  0% {
+    transform: translate(0, 20px);
+  }
+
+  50% {
+    transform: translate(0, 15px);
+  }
+
+  100% {
+    transform: translate(0, -0px);
+  }
+
+  0% {
+    transform: rotate(45deg);
+  }
+
+  50% {
+    transform: rotate(70deg);
+  }
+
+  100% {
+    transform: rotate(120deg);
+  }
+}
+
+.overallprogressbox .floating {
+  animation-name: ani-floating;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  margin-left: -160px;
+}
+
+@keyframes ani-floating {
+  0% {
+    transform: translate(0, 20px);
+  }
+
+  50% {
+    transform: translate(0, 15px);
+  }
+
+  100% {
+    transform: translate(0, -0px);
+  }
+
+  0% {
+    transform: rotate(15deg);
+  }
+
+  50% {
+    transform: rotate(30deg);
+  }
+
+  100% {
+    transform: rotate(60deg);
+  }
+}
+
+.overallprogressbox .dot {
+  height: 65px;
+  width: 65px;
+  position: absolute;
+  margin-top: 50px;
+  margin-left: -113px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #D77073;
+  border: 2px solid #000000;
+}
+
+.overallprogressbox .dot-text {
+  margin-top: 14px;
+  margin-left: 4px;
+  text-align: center;
+  font-size: 13px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bolder;
+}
+
+/* Userdahsboard page -> dashboard page -> calender box */
+
+.calenderbox {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.calenderbox>span {
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 6%;
+}
+
+.calenderbox .react-calendar {
+  border: none;
+  outline: none;
+  width: 100%;
+  margin-top: 10px;
+  background: transparent;
+}
+
+
+/* Userdahsboard page -> My Schedule page */
+
+.myschedule {
+  margin: 15px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.myschedule>span {
+  font-weight: bold;
+  font-size: 30px;
+  margin: 2% 0;
+}
+
+.myschedule #subheading {
+  margin-top: -1rem;
+}
+
+.myschedule table {
+  border-collapse: collapse;
+  width: 90%;
+  margin: 20px 20px;
+}
+
+.myschedule td,
+.myschedule th {
+  padding: 12px;
+  text-align: center;
+}
+
+.myschedule tr:nth-child(even) {
+  border: 2px solid #000000;
+}
+
+.myschedule tr:nth-child(odd) {
+  background-color: #fff;
+  border: 2px solid #000000;
+}
+
+.myschedule button,
+.myschedule #semister {
+  cursor: pointer;
+  width: 120px;
+  height: 30px;
+  background: #C22327;
+  color: white;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  font-weight: bolder;
+}
+
+.myschedule #semister {
+  width: 9rem;
+  position: relative;
+  left: 81.5%;
+  margin-top: 2rem;
+}
+
+
+/* Userdahsboard page -> Calender Page  */
+
+.calender {
+  margin: 15px 15px;
+}
+
+.calender>span {
+  font-weight: bold;
+  font-size: 30px;
+  position: relative;
+  top: 3%;
+  left: 2%;
+}
+
+.calender2 {
+  grid-template-columns: auto 35%;
+  display: grid;
+  justify-content: space-evenly;
+  margin-top: 30px;
+  align-items: center;
+}
+
+.calender2 .right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.calender2 .drop-events {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  height: 200px;
+  background: rgba(110, 11, 20, 0.08);
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+
+.calender2 .drop-events button,
+.calender2 .right form button {
+  height: 40px;
+  border: 2px solid #000000;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.calender2 .drop-events button:hover,
+.calender2 .right form button:hover {
+  background: rgba(110, 11, 20, 0.08);
+  border: 2px solid #000000;
+  color: white;
+}
+
+.calender2 .drop-events .event-list {
+  width: 345px;
+  height: 160px;
+  padding: 10px 0px;
+  background: #FFFFFF;
+  mix-blend-mode: normal;
+  opacity: 0.73;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  overflow: scroll;
+}
+
+.calender2 .deletebtn{
+  background: transparent !important;
+  margin-left: 10px;
+  color: red;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.calender2 .deleteicon{
+  width: 20px;
+  height: 20px;
+}
+
+.calender2 .drop-events .event-list::-webkit-scrollbar {
+  display: none;
+}
+
+.calender2 .right form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.calender2 .right form input[type="text"],
+.calender2 .right form input[type="date"] {
+  outline: 0;
+  height: 44px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  padding-left: 15px;
+}
+
+.calender2 .right form button {
+  width: 383px;
+}
+
+/* calender */
+
+.calender .calender2 .react-calendar {
+  margin: 2rem 0 0 4rem;
+  width: 80%;
+  height: 90%;
+  background: rgba(110, 11, 20, 0.08);
+  border: 2px solid #000000;
+  color: #222;
+  border-radius: 10px;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #d10000;
+}
+
+
+/* Userdahsboard page -> My Roadmap page  */
+
+.myroadmap {
+  grid-template-columns: auto auto;
+  display: grid;
+}
+
+.myroadmap .year-container {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10% 0;
+}
+
+.myroadmap .year-item {
+  text-align: center;
+  width: 300px;
+  padding: 10px 0;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  text-decoration: none;
+  color: #000000;
+}
+
+.myroadmap .year-item:hover {
+  background: #C22327;
+  color: white;
+}
+
+/* Userdahsboard page -> My Roadmap page -> year page */
+.year {
+  grid-template-columns: auto auto;
+  display: grid;
+}
+
+.year .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.year .container ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.year .container ul .fall-courses {
+  width: 383px;
+  height: 44px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.years button{
+  align-items: center;
+  width: 283px;
+  height: 32px;
+  background: #C22327;
+  color: white;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  font-weight: 600;
+  outline: 0;
+  cursor: pointer;
+  margin-left: 38%;
+  margin-top: 5%;
+}
+
+/* Userdahsboard page -> My Tasks Page */
+
+.myTasks {
+  margin: 15px 0px 0px 15px;
+
+}
+
+.myTasks>span {
+  font-weight: bold;
+  font-size: 30px;
+  margin-left: 1%;
+}
+
+.myTasks .addeditTask {
+
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 21rem;
+  padding: 0px 30px;
+}
+
+.myTasks .DATasks {
+  background: transparent;
+  border: none;
+  margin-top: 30%;
+  font-weight: bold;
+  left: 85%;
+  font-size: 16px;
+  text-decoration: underline;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Userdahsboard page -> My Tasks page -> add task form */
+
+.addtaskform .wrapper {
+  width: 35%;
+  border-radius: 10px;
+}
+
+.addtaskform .wrapper>input {
+  padding: 12px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  width: 94.5%;
+}
+
+.addtaskform .wrapper>input:focus {
+  outline: none;
+}
+
+.addEditTask {
+  margin-top: 20px;
+}
+
+/* addBtn */
+
+.addtaskform .wrapper>button {
+  display: flex;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  margin-top: -39px;
+  margin-left: 105%;
+}
+
+.addtaskform .wrapper>button>span {
+  padding: 5px 5px 5px 1px;
+  color: #C22327;
+}
+
+.addtaskform .wrapper>button:hover {
+  cursor: pointer;
+}
+
+.addtaskform .wrapper>button:focus {
+  outline: none;
+}
+
+/* Userdahsboard page -> My Tasks page -> Edit Task form */
+
+.edittaskform .wrapper2 {
+  position: relative;
+  width: 35%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.edittaskform .wrapper2>input {
+  width: 94.3%;
+  padding: 12px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+
+.edittaskform .wrapper2>input:focus {
+  outline: none;
+}
+
+.edittaskform .wrapper2>button {
+  display: flex;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  margin-top: -39px;
+  margin-left: 105%;
+  padding: 5px;
+}
+
+.edittaskform .wrapper2>button:hover {
+  cursor: pointer;
+}
+
+.edittaskform .wrapper2>button>span {
+  color: #C22327;
+}
+
+/* Userdahsboard page -> My tasks page -> task list page */
+.taskList {
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+  position: fixed;
+  transition: all 300ms ease;
+  margin-top: 1.5rem;
+  max-height: 40%;
+  width: 75%;
+  margin-left: 30px;
+  margin-right: 30px;
+  overflow: scroll;
+}
+
+.taskList::-webkit-scrollbar {
+  display: none;
+}
+
+.taskList .tasks {
+  display: grid;
+  list-style-type: none;
+}
+
+/* Userdahsboard page -> My Tasks page -> task item page */
+
+.taskItem .task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  padding: 0.5rem;
+  margin-right: 2.5rem;
+  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
+  border-radius: 10px;
+}
+
+.taskItem .task-group {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+
+.taskItem .label {
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.taskItem .checkbox:checked {
+  accent-color: black;
+}
+
+.taskItem .checkbox:hover {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+
+.taskItem .checkbox:checked+label {
+  text-decoration: line-through;
+  color: #bdc4cd;
+}
+
+.taskItem .task-group button {
+  border: none;
+  background: transparent;
+}
+
+.taskItem .task-group button:hover {
+  width: 21px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.taskItem .task-group button>span {
+  margin-left: -15px;
+}
+
+.taskItem .task-group .update>span {
+  color: #C22327;
+}
+
+.taskItem .task-group .delete>span {
+  color: red;
+}
+
+/* Userdahsboard page -> My Grades page */
+
+.mygrades>span {
+  font-weight: bold;
+  font-size: 30px;
+  position: relative;
+  top: 3%;
+  left: 2%;
+}
+
+.mygrades table {
+  width: 70%;
+  margin: 10% auto;
+  border-collapse: collapse;
+}
+
+.mygrades td,
+.mygrades th {
+  padding: 12px;
+  text-align: center;
+}
+
+.mygrades tr:nth-child(even) {
+  border: 2px solid #000000;
+}
+
+.mygrades tr:nth-child(odd) {
+  background-color: #fff;
+  border: 2px solid #000000;
+}
+
+/* Userdahsboard page -> My Grades Page -> Grades page */
+
+.grades {
+  margin: 15px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.grades>span {
+  font-weight: bold;
+  font-size: 30px;
+  margin: 2% 0;
+}
+
+
+.grades table {
+  border-collapse: collapse;
+  width: 50%;
+}
+
+.grades td,
+.grades th {
+  padding: 12px;
+  text-align: center;
+}
+
+.grades tr:nth-child(even) {
+  border: 2px solid #000000;
+}
+
+.grades tr:nth-child(odd) {
+  background-color: #fff;
+  border: 2px solid #000000;
+}
+
+.grades .showchartbtn {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  font-weight: bold;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  top: 10%;
+  position: relative;
+  cursor: pointer;
+}
+
+.grades .showchartbtn>span {
+  color: black;
+}
+
+/* Userdahsboard page -> Chart Bar page */
+
+.chartbar {
+  margin-top: 2rem;
+}
+
+/* Userdahsboard page -> Resources page */
+
+/* .resources table{
+  overflow: scroll;
+  max-height: 100%;
+} */
+
+.resources>span {
+  font-weight: bold;
+  font-size: 30px;
+  position: relative;
+  top: 3%;
+  left: 2%;
+}
+
+.resources table {
+  margin: 5%;
+  width: 80%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.resources table button {
+  cursor: pointer;
+  width: 120px;
+  height: 30px;
+  background: #C22327;
+  color: white;
+  border-radius: 5px;
+  font-weight: bolder;
+}
+
+.resources #download-all {
+  background: #C22327;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 180px;
+  height: 35px;
+  position: relative;
+  font-weight: bolder;
+  left: 80%;
+}
+
+.resources table tr {
+  height: 49px;
+}
+
+.resources tr:nth-child(even) {
+  border: 2px solid #000000;
+}
+
+.resources tr:nth-child(odd) {
+  background-color: #fff;
+  border: 2px solid #000000;
+}
+
+/* Contributordahsboard page */
+
+.contributordashboard {
+  grid-template-columns: 13rem auto;
+  display: grid;
+}
+
+.contributordashboard .contributorDash2 {
+  grid-template-rows: 10% auto;
+  display: grid;
+}
+
+/* contributordahsboard page -> dashboard Page*/
+
+.contdashboard>span{
+    font-weight: 400;
+    font-size: 60px;
+    position: relative;
+    top: 40%;
+    left: 20%;
+}
+
+/* contributordahsboard page -> add resources Page*/
+
+.addresources>span {
+  font-weight: bold;
+  font-size: 30px;
+  position: relative;
+  top: 3%;
+  left: 2%;
+}
+
+.addresources form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin: 3rem 3rem 0 10rem ;
+  font-weight: bold;
+}
+
+.addresources table{
+  width: 400px;
+}
+
+.addresources table tr td {
+  padding: 1.5rem;
+  font-size: 25px;
+}
+
+.addresources select{
+  width: 198px;
+  height: 30px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 4px;
+}
+
+.addresources .custom-file::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.addresources .custom-file::before {
+  content: "Choose a file....";
+  opacity: 0.5;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px 8px;
+  outline: none;
+  cursor: pointer;
+  text-shadow: 1px 1px black;
+  font-weight: bold;
+}
+
+.addresources #file{
+  width: 198px;
+  height: 30px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 4px;
+}
+
+.addresources .custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.addresources .icon {
+  position: absolute;
+  top: 62.2%;
+  left: 69.2%;
+}
+
+.addresources .custom-file-input::before {
+  content: "Choose a file....";
+  opacity: 0.5;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 5px 8px;
+  outline: none;
+  cursor: pointer;
+  text-shadow: 1px 1px black;
+  font-weight: bold;
+}
+
+.addresources button {
+  background: #C22327;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.addresources button:hover {
+  border: 10px;
+}
+
+
+/* Admindahsboard page */
+
+.admindashboard {
+  grid-template-columns: 13rem auto;
+  display: grid;
+}
+
+.admindashboard .adminDash2 {
+  grid-template-rows: 10% auto;
+  display: grid;
+}
+
+/* Admindashboard page -> Dashboard page */
+
+.admdashboard > span {
+  font-weight: 400;
+  font-size: 60px;
+  position: relative;
+  top: 40%;
+  left: 20%;
+}
+
+
+/* Admindashboard page -> requests page */
+
+.requests > span {
+  font-weight: bold;
+  font-size: 30px;
+  position: relative;
+  top: 3%;
+  left: 2%;
+}
+
+.request-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 3rem;
+}
+
+.requests .req-icons{
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.request-list .request-item {
+  padding: 0 1rem;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  width: 1040px;
+  height: 49px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.request-list .request-item .text {
+  display: flex;
+  gap: 2rem;
+}
+
+/* loader */
+
+.centerItem{
+  display:"flex";
+  justify-content: "center";
+  align-items: "center";
+  width: "100%";
+  height: "100%";
+  transform: translate(50%, 50%);
+}
+
+.loader {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* button on notebook page -> notes page */
+
+.note{
+  color:white;
+  background-color: #C22327;
+  border: 2px solid black;
+  padding: 6px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 300;
+}
+
+.notebook input, textarea {
+  width: 198px;
+  height: 30px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 4px;
+}
+
+.notebook select {
+  width: 198px;
+  height: 30px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 4px;
+}
+
+.notebook>span {
+  font-weight: bold;
+  font-size: 30px;
+  position: relative;
+  top: 3%; 
+  left: 2%;
+}
+
+.notebook form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin: 3rem 3rem 0 10rem ;
+  font-weight: bold;
+}
+.notebook table{
+  width: 500px;
+}
+.notebook table tr td {
+  padding: 0.5rem;
+  font-size: 25px;
+}
+
+.notebook button {
+  background: #C22327;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.notebook button:hover {
+  border: 10px;
+}
+
+/* notes page */
+
+.notes>span {
+  font-weight: bold;
+  font-size: 30px;
+  position: relative;
+  top: 3%;
+  left: 2%;
+}
+
+
+/* Userdahsboard page -> My notes page ->Notebooklist page */
+.notebookList {
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+  position: fixed;
+  transition: all 300ms ease;
+  margin-top: 1.5rem;
+  max-height: 70%;
+  width: 75%;
+  margin-left: 30px;
+  margin-right: 30px;
+  overflow: scroll;
+}
+
+.notebookList::-webkit-scrollbar {
+  display: none;
+}
+
+.notebookList .tasks {
+  display: grid;
+  list-style-type: none;
+}
+
+/* Userdahsboard page -> My Tasks page -> task item page */
+
+.notebookItem .notebook {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  padding: 0.5rem;
+  margin-right: 2.5rem;
+  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
+  border-radius: 10px;
+  height: 80px;
+}
+
+.notebookItem .notebook-group {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+
+.notebookItem .label {
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.notebookItem .notebook-group button {
+  border: none;
+  background: transparent;
+}
+
+.notebookItem .notebook-group button:hover {
+  cursor: pointer;
+}
+
+.notebookItem .notebook-group button>span {
+  margin-left: -15px;
+}
+
+.notebookItem .notebook-group .update>span {
+  color: #C22327;
+}
+
+.notebookItem .notebook-group .delete>span {
+  color: red;
+}
+
+
+/* Userdahsboard page -> My Tasks page -> Edit Task form */
+
+.editnotebookform .wrapper2 {
+  position: relative;
+  width: 60%;
+  height: 50px !important;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.editnotebookform .wrapper2>input {
+  width: 94.3%;
+  padding: 12px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+
+.editnotebookform .wrapper2>input:focus {
+  outline: none;
+}
+
+.editnotebookform .wrapper2>button {
+  display: flex;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  margin-top: -39px;
+  margin-left: 105%;
+  padding: 5px;
+}
+
+.editnotebookform .wrapper2>button:hover {
+  cursor: pointer;
+}
+
+.editnotebookform .wrapper2>button>span {
+  color: #C22327;
+}
+
+
+/* Pop Up page 2 */
+.popup-box2 {
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.popup-box2 .box2 {
+  position: relative;
+  width: 30%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: 15%;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding: 20px;
+  overflow: auto;
+}
+
+.popup-box2 .close-icon {
+  content: 'x';
+  cursor: pointer;
+  position: fixed;
+  right: calc(35% - 25px);
+  top: calc(100vh - 65vh - 33px);
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  font-size: 20px;
+  color: #C22327;
+}

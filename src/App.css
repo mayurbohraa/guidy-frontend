@@ -1,0 +1,26 @@
+.App {
+  background: #CB9FA3;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  display: flex;
+}
+
+.AppGlass{
+  background: rgba(110, 11, 20, 0.08);
+  border: 2px solid #000000;
+  border-radius: 10px;
+  width: 93%;
+  height: 93%;
+  display: grid;  
+}
+
+/* calender */
+
+.active-day{
+  background-color: orange !important;
+  color: white !important;
+}
+
+
+

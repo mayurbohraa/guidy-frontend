@@ -78,6 +78,6 @@ Use the following credentials to access each role:
 
 ## Notes
 
-- The app expects a backend API proxied through `http://localhost:4000/`.
+- The app expects a backend API proxied through `http://localhost:4000/` & `https://guidy-backend.vercel.app/api/v1`.
 - Authentication state is stored in `localStorage` and role-based navigation is handled through React Router.
 - The signup screen supports user role selection for general registration.

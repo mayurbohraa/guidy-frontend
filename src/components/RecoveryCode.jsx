@@ -19,7 +19,7 @@ export default function RecoveryCode({ label = "Reveal recovery code" }) {
       const { data } = await guidyGet("/profile/recovery-code");
       setCode(data.code);
     } catch {
-      setError("The recovery code could not be loaded. Close this dialog and try again.");
+      setError("Could not load code. Please retry.");
     } finally {
       setBusy(false);
     }
@@ -38,7 +38,7 @@ export default function RecoveryCode({ label = "Reveal recovery code" }) {
           try { await navigator.clipboard.writeText(code); setCopied(true); }
           catch { setError("Copy failed. Select the code to copy it manually."); }
         }}>Copy code</button></div>
-        {copied && <p role="status">Code copied.</p>}<p>Save this code somewhere private. It changes when you change or reset your password.</p></>}
+        {copied && <p role="status">Code copied.</p>}<p>Keep it private. Password changes replace this code.</p></>}
     </div>} />}
   </>;
 }

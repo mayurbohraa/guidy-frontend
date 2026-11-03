@@ -34,17 +34,11 @@ export default function Dashboard() {
           <Breakdown rows={rows} total={library.data?.length ?? 0} />
         </PanelState>
       </Panel>
-      <Panel title="Submit a resource">
-        <p>Choose the year, term, and subject before uploading your file. An administrator reviews each submission before it becomes available to students.</p>
+      <Panel title="Submit a resource" wide>
+        <p>Choose a course and upload your file for review.</p>
         <Link className="workspace-button" to="/contributordashboard/addresources">Add resource</Link>
       </Panel>
-      <Panel title="Before you upload">
-        <ul className="workspace-list">
-          <li>Choose the course the resource belongs to.</li>
-          <li>Use a descriptive filename.</li>
-          <li>Check the upload limit shown on the submission form.</li>
-        </ul>
-      </Panel>
+
     </Workspace>
   );
 }

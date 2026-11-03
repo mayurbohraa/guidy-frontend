@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import { render, screen, fireEvent, within, waitFor } from "@testing-library/react";
 
 import App from "./App";
 
@@ -46,6 +46,7 @@ test("the legacy logout URL requests confirmation without ending the session", a
   const dialog=await screen.findByRole("dialog",{name:"Confirm logout"},{timeout:15000});
   expect(localStorage.getItem("token_status")).toBe("preserved-session");
   fireEvent.click(within(dialog).getByRole("button",{name:"Cancel"}));
+  await waitFor(() => expect(screen.queryAllByRole("status", { hidden: true })).toHaveLength(0));
   expect(localStorage.getItem("token_status")).toBe("preserved-session");
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 });

@@ -15,7 +15,7 @@ test("requests simulated delivery from the code step", async () => {
   enterEmail();
   expect(screen.queryByLabelText("New password")).not.toBeInTheDocument();
   fireEvent.click(screen.getByRole("button", {name: "Request account recovery"}));
-  expect(await screen.findByRole("status")).toHaveTextContent("Email delivery is simulated");
+  expect(await screen.findByRole("status")).toHaveTextContent("Delivery is simulated");
   expect(guidyPost).toHaveBeenCalledWith("/forgot-password", {email: "student@qu.edu.qa"});
 });
 

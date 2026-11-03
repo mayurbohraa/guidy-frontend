@@ -19,7 +19,7 @@ This React application was developed through a freelance engagement for a studen
 - Calendar selection updates the event form; events are sorted and can be filtered by the selected date.
 - My Profile opens inside the dashboard and refreshes the account header after saved changes.
 - The original logo and rose-and-burgundy theme are retained, with a transparent planner illustration on login and signup.
-- Navigation and the header stay in place while dashboard content scrolls. Signup scrolls within its form panel.
+- Mobile navigation uses a hamburger drawer with close, backdrop, Escape, and focus handling. The header stays steady while dashboard content scrolls. Signup scrolls within its form panel.
 - Field information icons reveal format guidance on hover, keyboard focus, or tap. Hover does not change the icon's colour or background; validation errors remain beside their fields.
 
 Login, signup, and recovery share the same branding panel. Beside the **My Profile** heading, users can reveal and save their recovery code from their signed-in dashboard. Forgot password checks the university email format, verifies the recovery code, and then shows the new-password form. The popup includes a Copy code action. Administrators can approve recovery requests and record simulated email delivery in notifications.
@@ -89,6 +89,8 @@ Restart the development server after changing this value. Production values are 
 | `npm run lint` | Check source files with zero permitted ESLint warnings. |
 | `npm test -- --watchAll=false --runInBand` | Run the regression suite once. |
 | `npm run build` | Generate the production application in `build/`. |
+
+Latest verification on 4 November 2026 includes frontend lint, component tests, the production build, 14 backend regression checks, and 12 isolated MongoDB workflow checks. Hosted deployment and visual browser verification remain pending.
 
 ## Project structure
 

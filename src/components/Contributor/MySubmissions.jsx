@@ -26,14 +26,14 @@ export default function MySubmissions() {
       setSelected(null);
       submissions.retry();
     } catch {
-      setError("This submission could not be withdrawn. It may already have been reviewed.");
+      setError("Could not withdraw. Refresh to check its status.");
     } finally {
       setBusy(false);
     }
   }
 
   return <Workspace title="My submissions" description="Review the learning materials you uploaded and their approval status.">
-      <Panel title="My submissions" link="/contributordashboard/addresources" action="Add resource" wide>
+      <Panel title="Uploaded resources" link="/contributordashboard/addresources" action="Add resource" wide>
         {error && !selected && <p role="alert">{error}</p>}
         <PanelState request={submissions} empty={submissions.data?.length === 0 && "You have not submitted any resources yet."}>
           <div className="workspace-table"><table>

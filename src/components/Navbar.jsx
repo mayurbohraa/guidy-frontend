@@ -19,7 +19,7 @@ const loadNotifications = async () => {
   return data;
 };
 
-export default function Navbar() {
+export default function Navbar({ menuOpen, menuButtonRef, onMenuToggle }) {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
@@ -82,6 +82,8 @@ export default function Navbar() {
         }
       }}
     >
+      {onMenuToggle && <button ref={menuButtonRef} type="button" className="workspace-header-button workspace-menu-toggle"
+        aria-label="Open navigation" aria-controls="workspace-navigation" aria-expanded={Boolean(menuOpen)} onClick={onMenuToggle}>☰</button>}
       <HeaderSearch />
       <div className="workspace-menu">
         <button

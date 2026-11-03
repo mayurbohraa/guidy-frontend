@@ -26,7 +26,7 @@ export default function Requests() {
     <Workspace title="Resource requests" description="Review learning materials submitted by contributors.">
       <Panel title="Pending requests" wide>
         {failure && <p role="alert">{failure}</p>}
-        <PanelState request={request} empty={request.data?.length === 0 && "No pending requests. New submissions will appear here."}>
+        <PanelState request={request} empty={request.data?.length === 0 && "No pending requests."}>
           <div className="workspace-table">
             <table>
               <thead><tr><th>File</th><th>Course</th><th>Contributor</th><th>Actions</th></tr></thead>

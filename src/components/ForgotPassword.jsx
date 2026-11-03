@@ -92,7 +92,7 @@ export default function ForgotPassword() {
       <button type="submit" disabled={busy}>{busy ? "Please wait…" : step === 2 ? "Reset password" : "Continue"}</button>
       {step === 1 && <button type="button" className="workspace-secondary" disabled={busy} onClick={() => run(async () => {
         const result = await guidyPost("/forgot-password", { email: email.trim() });
-        setMessage(result.message + " Email delivery is simulated. Return here with your saved code.");
+        setMessage(result.message + " Delivery is simulated. Use your saved code.");
       })}>Request account recovery</button>}
       {step > 0 && <button type="button" className="workspace-secondary" disabled={busy} onClick={() => goTo(step - 1)}>Back</button>}
       <p className="login-navigation"><Link className="navsignup" to="/">Back to login</Link></p>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { guidyPost } from "../../Api/api.service";
 import AcademicFields from "../AcademicFields";
 import FieldHelp from "../FieldHelp";
@@ -95,7 +95,6 @@ export default function Notebook() {
             <button className="workspace-button" type="submit" disabled={busy}>
               {busy ? "Saving…" : "Save notebook"}
             </button>
-            <Link to="/userdashboard/notes">View notebooks</Link>
           </div>
         </form>
       </Panel>

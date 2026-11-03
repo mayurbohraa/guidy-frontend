@@ -47,11 +47,11 @@ export function PanelState({ request, empty, children }) {
   return empty ? <p className="workspace-state">{empty}</p> : children;
 }
 
-export function Workspace({ title, description, children }) {
+export function Workspace({ title, description, children, action }) {
   return (
     <main className="workspace">
       <header className="workspace-heading">
-        <h1>{title}</h1>
+        <div className="workspace-heading-row"><h1>{title}</h1>{action}</div>
         <p>{description}</p>
       </header>
       <div className="workspace-grid">{children}</div>

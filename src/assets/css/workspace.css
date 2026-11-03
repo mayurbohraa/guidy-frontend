@@ -1882,3 +1882,5 @@
 
 .guidy-auth-caption { margin: 0; }
 .guidy-logout-modal code { overflow-wrap: anywhere; }
+
+.workspace-heading-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem; }

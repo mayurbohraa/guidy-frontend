@@ -94,7 +94,7 @@ export default function ViewProfile() {
   }
 
   return (
-    <Workspace title="My profile" description="View and update your Guidy account details.">
+    <Workspace action={profile.status === "ready" && <div id="recovery-code" tabIndex={-1}><RecoveryCode label="Recovery code" /></div>} title="My profile" description="View and update your Guidy account details.">
       <Panel title="Account overview" link={getDashboardPath(user?.role)} action="Back to dashboard" wide>
         <PanelState request={profile}>
           <div className="workspace-profile-overview">
@@ -140,10 +140,7 @@ export default function ViewProfile() {
           )}
         </PanelState>
       </Panel>
-      {profile.status === "ready" && <Panel title="Account security" wide><div className="workspace-form-grid">
-        <section className="workspace-course-group"><h3>Password</h3><p>Update the password you use to sign in.</p><ChangePassword /></section>
-        <section className="workspace-course-group" id="recovery-code" tabIndex={-1}><h3>Recovery code</h3><p>Save your private code to reset your password later.</p><RecoveryCode /></section>
-      </div></Panel>}
+      {profile.status === "ready" && <Panel title="Account security" wide><ChangePassword /></Panel>}
     </Workspace>
   );
 }

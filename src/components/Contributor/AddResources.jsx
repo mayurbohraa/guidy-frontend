@@ -59,7 +59,7 @@ export default function AddResources() {
       title="Add resources"
       description="Share course materials for administrator review."
     >
-      <Panel title="New submission" wide>
+      <Panel title="New submission" link="/contributordashboard/submissions" action="View my submissions" wide>
         <PanelState request={settings}>
           <form
             className="workspace-form"

@@ -1,3 +1,4 @@
+import { loadSubmissions } from "./MySubmissions";
 import { guidyGet } from "../../Api/api.service";
 import apiRoutes from "../../Api/apiRoutes";
 import { Link } from "react-router-dom";
@@ -8,14 +9,6 @@ const loadLibrary = async () => {
   if (!Array.isArray(data)) throw new Error("Invalid library response");
   return data;
 };
-
-const loadSubmissions = async () => {
-  const { data } = await guidyGet("/resources/mine");
-  if (!Array.isArray(data)) throw new Error("Invalid submissions response");
-  return data;
-};
-
-const statusLabels = { pending: "Pending", accepted: "Approved", denied: "Declined" };
 
 export default function Dashboard() {
   const submissions = useWorkspaceData(loadSubmissions);
@@ -32,21 +25,10 @@ export default function Dashboard() {
         <Metric label="Pending review" value={submissions.data?.filter(item => item.status === "pending").length} />
         <Metric label="Approved submissions" value={submissions.data?.filter(item => item.status === "accepted").length} />
       </Summary>
-      <Panel title="My submissions" link="/contributordashboard/addresources" action="Add resource" wide>
-        <PanelState request={submissions} empty={submissions.data?.length === 0 && "You have not submitted any resources yet."}>
-          <div className="workspace-table"><table>
-            <thead><tr><th>Resource</th><th>Course</th><th>Year</th><th>Term</th><th>Review status</th></tr></thead>
-            <tbody>{submissions.data?.map(item => (
-              <tr key={item._id}>
-                <td>{item.resourceName}</td><td>{item.subject?.name || "Course unavailable"}</td>
-                <td>{item.year ?? "—"}</td><td>{item.term || "—"}</td>
-                <td><strong>{statusLabels[item.status] || "Unavailable"}</strong></td>
-              </tr>
-            ))}</tbody>
-          </table></div>
-        </PanelState>
+      <Panel title="My submissions" link="/contributordashboard/submissions" action="View submissions">
+        <p>See your uploads and track their review status.</p>
       </Panel>
-      <Panel title="Library coverage" wide>
+      <Panel title="Library coverage">
         <PanelState request={library} empty={library.data?.length === 0 && "The approved resource library is empty."}>
           <p>Approved resources across all contributors, grouped by academic year.</p>
           <Breakdown rows={rows} total={library.data?.length ?? 0} />

@@ -36,7 +36,7 @@ function pageResults(query) {
       ["My notes", "Saved notebooks", root + "/notes"],
     );
   if (user?.role === "contributor")
-    pages[0][1] += " approved library coverage resources";
+    pages.push(["My submissions", "Uploaded resources review status", root + "/submissions"]);
   if (user?.role === "contributor")
     pages.push([
       "Add resources",

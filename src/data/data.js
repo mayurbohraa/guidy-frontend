@@ -70,6 +70,11 @@ export const SidebarData2 = [
     name: "Add Resources",
     to: "/contributordashboard/addresources",
   },
+  {
+    icon: UilFilePlusAlt,
+    name: "My submissions",
+    to: "/contributordashboard/submissions",
+  },
 ];
 
 // Admin dashboard Sidebar data

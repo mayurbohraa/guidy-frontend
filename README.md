@@ -2,70 +2,120 @@
 
 ## About the project
 
-Guidy is an academic tracker for university students. The web app brings schedules, tasks, notes, grades, and study materials together, with dedicated dashboards for students, contributors, and administrators.
+This React application was developed through a freelance engagement for a student client's academic project. It provides separate experiences for students, contributors, and administrators and connects to the independently maintained Guidy API.
 
 ## Key features
 
-- Login and signup for eligible university accounts, with navigation based on the account role.
-- Course registration, schedules, calendar events, tasks with saved completion state, notebooks, and grade tracking.
-- Resource submission for contributors, moderation for administrators, and downloads for signed-in users.
+| Role | Available features |
+|---|---|
+| Student | Course roadmap and registration, schedule management, calendar events, tasks, notebooks, grades, and approved resources. |
+| Contributor | Resource submission and an overview of the shared approved library, including course coverage and resources by academic year. |
+| Administrator | Pending resource counts, review queue, submission breakdown by term, resource approval or rejection, calendar, and tasks. |
+| All roles | Login, profile viewing and contact editing, notifications, and logout. Public signup supports students and contributors. |
 
-The Light workspace UI includes role-specific analytics, a review queue, notification and profile panels, and explicit loading, empty, and error states. Failed list requests offer retry, and expired sessions offer a sign-in action. My Profile stays inside the dashboard and supports saving contact details.
-
-The header and navigation stay in place while the main dashboard content scrolls with a theme-matched scrollbar. Signup uses the original logo and approved illustration, with scrolling confined to the form panel. Field information icons show format guidance on hover or keyboard focus without a hover background; touch users can tap the icon. Validation errors remain associated with their fields.
+- Dashboard summaries use API records, with separate loading, empty, error, and expired-session states.
+- Calendar selection updates the event form; events are sorted and can be filtered by the selected date.
+- My Profile opens inside the dashboard and refreshes the account header after saved changes.
+- The original logo and rose-and-burgundy theme are retained, with a transparent planner illustration on login and signup.
+- Navigation and the header stay in place while dashboard content scrolls. Signup scrolls within its form panel.
+- Field information icons reveal format guidance on hover, keyboard focus, or tap. Hover does not change the icon's colour or background; validation errors remain beside their fields.
 
 ## Live website
 
 https://guidy-frontend-bice.vercel.app/
 
-## GitHub repositories
+## Repositories
 
-- [Guidy Frontend](https://github.com/mayurbohraa/guidy_frontend)
-- [Guidy Backend](https://github.com/mayurbohraa/guidy_backend)
+- [Frontend repository](https://github.com/mayurbohraa/guidy_frontend)
+- [Companion backend repository and API setup](https://github.com/mayurbohraa/guidy_backend)
 
 ## Tech stack
 
-React 18, Create React App, React Router, Axios, React Calendar, Recharts, React Toastify, and CSS.
+React 18, Create React App 5, React Router 6, Axios, React Calendar, Recharts, React Toastify, Unicons, and CSS. Tests use Jest and React Testing Library; ESLint checks the source.
 
 ## Prerequisites
 
-- Node.js 24 and npm.
-- A running Guidy API for account and dashboard workflows. For local development, start the API using the setup instructions in the Backend repository.
+- Node.js 24 and npm; the latest recorded checks used Node.js 24.13.0 and npm 11.12.1.
+- Git to clone the repository.
+- A running Guidy backend and access to its configured MongoDB database through the API.
 
 ## Installation and setup
 
-1. Open a terminal in the frontend repository.
-2. Install dependencies with `npm ci`.
-3. Start the local Guidy API on port 4000 or configure an alternate API endpoint.
-4. Run `npm start` and open `http://localhost:3000`.
+1. Clone and open the frontend repository:
+
+   ```sh
+   git clone https://github.com/mayurbohraa/guidy_frontend.git
+   cd guidy_frontend
+   ```
+
+2. Install the locked dependencies:
+
+   ```sh
+   npm ci
+   ```
+
+3. Start the companion backend on port `4000`, or configure an alternate API URL below.
+4. Start the frontend:
+
+   ```sh
+   npm start
+   ```
+
+5. Open `http://localhost:3000`. Signup requires a Qatar University email. Administrator accounts are provisioned separately.
 
 ## Environment configuration
 
-Create a `.env.local` file if needed. Set `REACT_APP_API_URL` in `.env.local` or in the hosting environment to use a different API. Include the `/api/v1` suffix. With the variable unset, development requests use the local proxy on port 4000 and production uses the configured hosted default. Create React App embeds this value at build time, so use only a public API URL.
+| Variable | Purpose | Default |
+|---|---|---|
+| `REACT_APP_API_URL` | Public API base URL, including `/api/v1`. | Local development uses `/api/v1` through the port `4000` proxy; production uses the existing hosted API. |
 
-## Running locally
+For an alternate backend, create an untracked `.env.local` file:
+
+```dotenv
+REACT_APP_API_URL=http://localhost:4000/api/v1
+```
+
+Restart the development server after changing this value. Production values are embedded at build time; frontend environment files must contain only public configuration.
+
+## Commands and verification
 
 | Command | Purpose |
 |---|---|
-| `npm run lint` | Check code with ESLint. |
 | `npm start` | Start the development server. |
-| `npm test -- --watchAll=false --runInBand` | Run the frontend regression suite once. |
-| `npm run build` | Write the production bundle to `build/`. |
+| `npm run lint` | Check source files with zero permitted ESLint warnings. |
+| `npm test -- --watchAll=false --runInBand` | Run the regression suite once. |
+| `npm run build` | Generate the production application in `build/`. |
+
+Latest recorded verification, 3 November 2026: **24 tests passed in 10 suites**, lint passed, and the production build passed. Coverage includes form validation, profile edits, request encoding, calendar selection, empty data, retries, and menu behaviour. Browser verification of the updated desktop and mobile layouts and confirmation of the latest hosted deployment remain pending.
 
 ## Project structure
 
 ```text
 Frontend/
-├── public/           HTML shell and favicon
+├── public/                      HTML shell, manifest, and favicon
 ├── src/
-│   ├── Api/          Axios client and API route definitions
-│   ├── assets/       App graphics and styles
-│   ├── components/   Account screens and role-specific dashboards
-│   ├── routes/       Dashboard routes
-│   ├── service/      API helpers
-│   ├── App.js        Application routes
-│   └── App.test.js   Frontend regression tests
-├── .gitignore
+│   ├── Api/                     Axios client and API endpoint helpers
+│   ├── assets/                  Images and shared styles
+│   ├── components/
+│   │   ├── Admin/               Review queue and administrator dashboard
+│   │   ├── Contributor/         Resource submission and library summaries
+│   │   ├── User/                Student dashboard and academic workflows
+│   │   ├── pages/               Supporting course, note, grade, and task views
+│   │   ├── FieldHelp.jsx        Compact field-format information
+│   │   └── Workspace.jsx        Shared panels, metrics, and request states
+│   ├── routes/                  Role-specific dashboard routes
+│   ├── service/                 Authentication and API services
+│   ├── App.js                   Routes, guards, and rendering fallback
+│   └── App.test.js              Application entry-point checks
+├── package-lock.json
 ├── package.json
 └── README.md
 ```
+
+## Current limitations
+
+Password recovery displays an availability message; a complete recovery service is not implemented. Header search suggests course names from a static list. Grade entry is available through the API without a dedicated entry screen. Reliable storage of ordinary uploaded resources on serverless hosting requires durable storage in the backend.
+
+## Credits
+
+Confirmed freelance responsibilities include requirements analysis, UI/UX, frontend development, API integration, testing, and deployment. The original Guidy logo and supplied project assets are retained.

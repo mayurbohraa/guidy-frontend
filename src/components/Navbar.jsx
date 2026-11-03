@@ -172,9 +172,6 @@ export default function Navbar() {
           className="workspace-popover workspace-profile-links"
           hidden={open !== "profile"}
         >
-          <NavLink to={getDashboardPath(user?.role) + "/myprofile#recovery-code"} onClick={() => setOpen("")}>
-            Recovery code
-          </NavLink>
           {ProfileDD.map((item) =>
             item.to === "/logout" ? (
               <button

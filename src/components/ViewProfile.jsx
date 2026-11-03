@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import RecoveryCode from "./RecoveryCode";
 import ChangePassword from "./ChangePassword";
 import FieldHelp from "./FieldHelp";
@@ -23,15 +22,7 @@ const loadProfile = async () => {
 };
 
 export default function ViewProfile() {
-  const { hash } = useLocation();
   const profile = useWorkspaceData(loadProfile);
-  useEffect(() => {
-    if (profile.status === "ready" && hash === "#recovery-code") {
-      const section = document.getElementById("recovery-code");
-      section?.focus();
-      section?.scrollIntoView?.({ block: "nearest" });
-    }
-  }, [profile.status, hash]);
 
   const [savedUser, setSavedUser] = useState(null);
   const [editing, setEditing] = useState(false);
@@ -94,7 +85,7 @@ export default function ViewProfile() {
   }
 
   return (
-    <Workspace action={profile.status === "ready" && <div id="recovery-code" tabIndex={-1}><RecoveryCode label="Recovery code" /></div>} title="My profile" description="View and update your Guidy account details.">
+    <Workspace action={profile.status === "ready" && <RecoveryCode label="Recovery code" />} title="My profile" description="View and update your Guidy account details.">
       <Panel title="Account overview" link={getDashboardPath(user?.role)} action="Back to dashboard" wide>
         <PanelState request={profile}>
           <div className="workspace-profile-overview">

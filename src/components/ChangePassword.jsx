@@ -11,7 +11,6 @@ const fields = [
 
 export default function ChangePassword() {
   const navigate = useNavigate();
-  const [editing, setEditing] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
@@ -41,8 +40,6 @@ export default function ChangePassword() {
     }
   }
 
-  if (!editing) return <button className="workspace-secondary" type="button" onClick={() => setEditing(true)}>Change password</button>;
-
   return (
     <form className="workspace-form" onSubmit={submit} aria-label="Change password" aria-busy={busy}>
       <p>After changing your password, sign in again with the new one.</p>
@@ -59,7 +56,7 @@ export default function ChangePassword() {
       {error && <p role="alert">{error}</p>}
       <div className="workspace-actions">
         <button className="workspace-button" type="submit" disabled={busy}>{busy ? "Saving…" : "Update password"}</button>
-        <button className="workspace-secondary" type="button" disabled={busy} onClick={() => { setEditing(false); setError(""); }}>Cancel</button>
+        <button className="workspace-secondary" type="button" disabled={busy} onClick={event => { event.currentTarget.form.reset(); setError(""); }}>Clear</button>
       </div>
     </form>
   );

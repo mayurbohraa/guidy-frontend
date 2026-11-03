@@ -9,7 +9,7 @@ This React application was developed through a freelance engagement for a studen
 | Role | Available features |
 |---|---|
 | Student | Course roadmap and registration, schedule management, calendar events, tasks, notebooks, personal grade entry, and approved resources. |
-| Contributor | Resource submission, a My submissions sidebar page with review status, and an overview of the shared approved library, including course coverage and resources by academic year. |
+| Contributor | Resource submission, a My submissions sidebar page with review status, downloads, and pending withdrawal, and an overview of the shared approved library, including course coverage and resources by academic year. |
 | Administrator | Pending resource counts, review queue, submission breakdown by term, resource approval or rejection, calendar, tasks, and a searchable student and contributor directory. |
 | All roles | Login, profile viewing and contact editing, notifications, and logout. Public signup supports students and contributors. |
 
@@ -22,7 +22,7 @@ This React application was developed through a freelance engagement for a studen
 - Navigation and the header stay in place while dashboard content scrolls. Signup scrolls within its form panel.
 - Field information icons reveal format guidance on hover, keyboard focus, or tap. Hover does not change the icon's colour or background; validation errors remain beside their fields.
 
-Login, signup, and recovery share the same branding panel. Beside the **My Profile** heading, users can reveal and save their recovery code from their signed-in dashboard. Forgot password checks the university email format, verifies the recovery code, and then shows the new-password form. The dashboard header links to the profile recovery button. The popup includes a Copy code action. Administrators can approve recovery requests and record simulated email delivery in notifications.
+Login, signup, and recovery share the same branding panel. Beside the **My Profile** heading, users can reveal and save their recovery code from their signed-in dashboard. Forgot password checks the university email format, verifies the recovery code, and then shows the new-password form. The popup includes a Copy code action. Administrators can approve recovery requests and record simulated email delivery in notifications.
 
 ## Live website
 

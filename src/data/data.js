@@ -71,7 +71,7 @@ export const SidebarData2 = [
     to: "/contributordashboard/addresources",
   },
   {
-    icon: UilFilePlusAlt,
+    icon: UilFileCheckAlt,
     name: "My submissions",
     to: "/contributordashboard/submissions",
   },

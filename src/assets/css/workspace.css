@@ -1884,3 +1884,7 @@
 .guidy-logout-modal code { overflow-wrap: anywhere; }
 
 .workspace-heading-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem; }
+
+.workspace-recovery-code-row { display: flex; align-items: center; gap: .65rem; }
+.workspace-recovery-code-row button { flex: none; white-space: nowrap; }
+.workspace-recovery-code-row code { min-width: 0; overflow-wrap: anywhere; }

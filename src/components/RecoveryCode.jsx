@@ -33,11 +33,11 @@ export default function RecoveryCode({ label = "Reveal recovery code" }) {
       <h2>Your recovery code</h2>
       {busy && <p role="status">Loading code…</p>}
       {error && <p role="alert">{error}</p>}
-      {code && <><p><code>{code}</code></p>
+      {code && <><div className="workspace-recovery-code-row"><code>{code}</code>
         <button type="button" className="workspace-button" onClick={async () => {
           try { await navigator.clipboard.writeText(code); setCopied(true); }
           catch { setError("Copy failed. Select the code to copy it manually."); }
-        }}>Copy code</button>
+        }}>Copy code</button></div>
         {copied && <p role="status">Code copied.</p>}<p>Save this code somewhere private. It changes when you change or reset your password.</p></>}
     </div>} />}
   </>;

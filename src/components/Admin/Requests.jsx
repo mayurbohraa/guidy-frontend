@@ -1,73 +1,54 @@
-import React, { useState, useEffect } from "react";
-import {
-  UilEye,
-  UilCheckCircle,
-  UilTimesCircle,
-} from "@iconscout/react-unicons";
-import { guidyGet, guidyPost } from "../../Api/api.service";
+import { useState } from "react";
+import { Panel, PanelState, Workspace, useWorkspaceData } from "../Workspace";
+import { downloadResource, guidyPost } from "../../Api/api.service";
 import apiRoutes from "../../Api/apiRoutes";
+import { loadQueue } from "./Dashboard";
 
-const Requests = () => {
-  const [resources, setResources] = useState([]);
+export default function Requests() {
+  const request = useWorkspaceData(loadQueue);
+  const [updating, setUpdating] = useState(false);
+  const [failure, setFailure] = useState("");
 
-  useEffect(() => {
-    fetchResources();
-  }, []);
-
-  async function fetchResources() {
-    const resources = (await guidyGet(apiRoutes.fetchAdminResources)).data;
-    setResources(resources);
+  async function review(id, status) {
+    setUpdating(true);
+    setFailure("");
+    try {
+      await guidyPost(apiRoutes.updateResource(id), { status });
+      request.retry();
+    } catch {
+      setFailure("Unable to update this request. Try again.");
+    } finally {
+      setUpdating(false);
+    }
   }
 
-  async function updateResources(resourceId, status) {
-    await guidyPost(apiRoutes.updateResource(resourceId), {
-      status: status,
-    });
-    fetchResources();
-  }
   return (
-    <div className="requests">
-      <span>Requests</span>
-
-      <div className="request-list">
-        {resources.map((item, index) => {
-          return (
-            <div className="request-item">
-              <span className="text">
-                <span>{index + 1}</span>
-                <span>{item.resourceName}</span>{" "}
-                <span>-{item.user.firstName + " " + item.user.lastName}</span>
-              </span> 
-              <span>
-              <a
-                    href={
-                      window.location.protocol +
-                      "//" +
-                      window.location.hostname +
-                      ":4000/" +
-                      item.resourceURL
-                    }
-                    download={item.resourceName}
-                  >
-                  <UilEye className="req-icons" />
-                  </a>
-                <UilCheckCircle
-                  className="req-icons"
-                  style={{ color: "#50C878" }}
-                  onClick={() => updateResources(item._id, "accepted")}
-                />
-                <UilTimesCircle
-                  className="req-icons"
-                  style={{ color: "red" }}
-                  onClick={() => updateResources(item._id, "denied")}
-                />
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <Workspace title="Resource requests" description="Review learning materials submitted by contributors.">
+      <Panel title="Pending requests" wide>
+        {failure && <p role="alert">{failure}</p>}
+        <PanelState request={request} empty={request.data?.length === 0 && "No pending requests. New submissions will appear here."}>
+          <div className="workspace-table">
+            <table>
+              <thead><tr><th>File</th><th>Course</th><th>Contributor</th><th>Actions</th></tr></thead>
+              <tbody>{request.data?.map((item) => (
+                <tr key={item._id}>
+                  <td>{item.resourceName}</td>
+                  <td>{item.subject?.name || "Unspecified subject"}</td>
+                  <td>{[item.user?.firstName, item.user?.lastName].filter(Boolean).join(" ") || "Unknown contributor"}</td>
+                  <td><div className="workspace-actions">
+                    <button type="button" className="workspace-secondary" onClick={() => {
+                      setFailure("");
+                      downloadResource(item._id, item.resourceName).catch(() => setFailure("This file is unavailable."));
+                    }}>Download</button>
+                    <button type="button" className="workspace-button" disabled={updating} onClick={() => review(item._id, "accepted")}>Approve</button>
+                    <button type="button" className="workspace-secondary workspace-danger" disabled={updating} onClick={() => review(item._id, "denied")}>Decline</button>
+                  </div></td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        </PanelState>
+      </Panel>
+    </Workspace>
   );
-};
-
-export default Requests;
+}

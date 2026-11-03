@@ -133,8 +133,7 @@
 }
 
 .login-form form button:hover {
-  width: 286px;
-  height: 35px;
+  filter: brightness(0.96);
 }
 
 .login-navigation .navsignup {
@@ -186,8 +185,7 @@
 }
 
 .forgotpassword form button:hover {
-  width: 205px;
-  height: 35px;
+  filter: brightness(0.96);
 }
 
 /* Reset Password Page */
@@ -228,8 +226,7 @@
 }
 
 .resetpassword .rpform form button:hover {
-  width: 205px;
-  height: 35px;
+  filter: brightness(0.96);
 }
 
 
@@ -256,7 +253,10 @@
   gap: 1rem;
 }
 
-.signup-form form input[type=text], input[type=password], input[type=email], input[type=tel] {
+.signup-form form input[type=text],
+.signup-form form input[type=password],
+.signup-form form input[type=email],
+.signup-form form input[type=tel] {
   box-sizing: border-box;
   width: 383px;
   height: 44px;
@@ -289,8 +289,7 @@
 }
 
 .signup form button:hover {
-  width: 286px;
-  height: 35px;
+  filter: brightness(0.96);
 }
 
 .signup-navigation .navlogin {
@@ -460,7 +459,7 @@
 .navbar .notification .dropbtn>span {
   padding: 5px 0px 5px 5px;
   color:#C22327;;
-  
+
 }
 
 .navbar .notification .counter{
@@ -489,7 +488,7 @@
 }
 
 .navbar .notification .notificationbox {
-  display: none;  
+  display: none;
   margin-top: 50px;
   margin-left: 200px;
   border-radius: 10px;
@@ -620,7 +619,7 @@
 
 .viewprofile>span {
   color: black;
-  font-weight: bold;  
+  font-weight: bold;
   font-size: 30px;
   position: relative;
   top: 3%;
@@ -706,7 +705,7 @@
 
 .usrdashboard .part2 {
 
-  grid-template-rows: 35% auto;  
+  grid-template-rows: 35% auto;
   display: grid;
   gap: 1rem;
 }
@@ -1902,11 +1901,11 @@ abbr[title] {
 /* loader */
 
 .centerItem{
-  display:"flex";
-  justify-content: "center";
-  align-items: "center";
-  width: "100%";
-  height: "100%";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   transform: translate(50%, 50%);
 }
 
@@ -1936,7 +1935,7 @@ abbr[title] {
   font-weight: 300;
 }
 
-.notebook input, textarea {
+.notebook input, .notebook textarea {
   width: 198px;
   height: 30px;
   background: #FFFFFF;
@@ -1956,7 +1955,7 @@ abbr[title] {
   font-weight: bold;
   font-size: 30px;
   position: relative;
-  top: 3%; 
+  top: 3%;
   left: 2%;
 }
 
@@ -2153,4 +2152,109 @@ abbr[title] {
   text-align: center;
   font-size: 20px;
   color: #C22327;
+}
+@media (max-width: 760px) {
+  .login, .signup, .forgotpassword, .resetpassword {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+
+  .mainlogo {
+    justify-items: center;
+    gap: 0.5rem;
+  }
+
+  .mainlogo .logo {
+    width: min(100%, 180px);
+    height: auto;
+    margin: 0;
+  }
+
+  .mainlogo .laptop {
+    width: min(100%, 170px);
+    height: auto;
+  }
+
+  .login-form form input,
+  .signup-form form input,
+  .login-form form button,
+  .signup-form form button {
+    max-width: min(100%, 75vw);
+  }
+}
+
+.requests .request-action {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+
+/* Dashboard content must flow on smaller screens instead of using desktop fixed positions. */
+@media (max-width: 1000px) {
+  .userdashboard, .contributordashboard, .admindashboard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidebar { height: auto; border-right: 0; border-bottom: 2px solid #000; }
+  .sidebar .logo { top: 0; padding: 0.75rem; }
+  .sidebar .logo img { max-width: 180px; }
+  .sidebar .menu { display: flex; flex-direction: row; flex-wrap: wrap; height: auto; margin-top: 0; }
+  .sidebar .menuItem { padding-inline: 0.75rem; }
+
+  .userdashboard .userDash2, .contributordashboard .contributorDash2,
+  .admindashboard .adminDash2 { grid-template-rows: auto auto; min-width: 0; }
+
+  .navbar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+  .navbar .searchbar, .navbar .profile, .navbar .notification .dropbtn {
+    position: relative; margin-left: 0; width: auto;
+  }
+  .navbar .searchbar { flex: 1; min-width: 150px; }
+  .navbar .notification .notificationbox {
+    position: absolute; right: 0; margin: 0; min-width: 0; width: min(75vw, 400px);
+  }
+  .navbar .profile { margin-left: auto; }
+  .navbar .profile .dropbtn > span { font-size: 18px; }
+  .navbar .dropdown-content { right: 0; }
+
+  .usrdashboard, .usrdashboard .part1, .usrdashboard .part2,
+  .calender2, .myroadmap, .year { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+  .SCPbox { height: auto; }
+  .SCPbox .schedbox { height: auto; min-height: 180px; }
+  .taskList, .tasklistbox, .notebookList { position: relative; width: auto; max-height: none; margin: 1rem; }
+  .myTasks .DATasks, .myschedule #semister { left: auto; margin: 1rem; }
+  .request-list { margin: 1rem; }
+  .request-list .request-item { width: auto; min-height: 49px; height: auto; padding-block: 0.5rem; gap: 1rem; }
+  .request-list .request-item .text { flex-wrap: wrap; gap: 0.5rem; }
+  .addresources form, .notebook form { margin: 1rem; padding: 0; }
+  .notebook table, .addresources table { width: 100%; }
+  .notebook table tr td, .addresources table tr td { padding: 0.5rem; font-size: 16px; }
+  .year .container ul { padding: 0; width: 100%; }
+  .year .container ul .fall-courses { width: auto; }
+  .years button { margin: 1rem; max-width: 85%; }
+  .myroadmap .year-item { max-width: 85%; }
+  .calender .calender2 .react-calendar { width: 100%; height: auto; margin: 1rem 0; }
+  .calender2 .right, .calender2 .right form, .calender2 .drop-events { max-width: 100%; box-sizing: border-box; }
+  .calender2 .drop-events .event-list, .calender2 .right form button { width: 100%; }
+  .myschedule, .mygrades, .resources, .grades { overflow-x: auto; }
+  .myschedule table, .mygrades table, .resources table, .grades table { width: 100%; margin-inline: 0; }
+  .viewprofile2 { grid-template-columns: 1fr; }
+  .viewprofile form { margin: 1rem; }
+  .viewprofile form table tr td { padding: 0.5rem; }
+  .contdashboard > span, .admdashboard > span { left: auto; top: auto; display: block; margin: 1rem; font-size: 30px; }
+}
+
+.popup-box, .popup-box2 { z-index: 20; }
+.popup-box .box, .popup-box2 .box2 { box-sizing: border-box; width: min(90vw, 800px); }
+.popup-box .close-icon, .popup-box2 .close-icon { position: absolute; top: 0.5rem; right: 0.5rem; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #6e0b14;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overallprogressbox .float, .overallprogressbox .floating, .loader { animation: none; }
 }

@@ -1,182 +1,64 @@
-import React, { useEffect, useReducer } from "react";
-
+import { useState } from "react";
 import Tasklist from "../pages/Tasklist";
 import Addtaskform from "../pages/Addtaskform";
-import apiRoutes from "../../Api/apiRoutes";
-
-import { useNavigate } from "react-router-dom";
-
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 import { guidyDelete, guidyGet, guidyPost } from "../../Api/api.service";
+import apiRoutes from "../../Api/apiRoutes";
+import { Panel, PanelState, Workspace, useWorkspaceData } from "../Workspace";
 
-const initialState = {
-  tasks: [],
-  isLoading: false,
-  isDeleting: false,
+const loadTasks = async () => {
+  const data = (await guidyGet(apiRoutes.fetchTasks)).data;
+  if (!Array.isArray(data)) throw new Error("Invalid list response");
+  return data;
 };
 
-const taskReducer = (state, action) => {
-  switch (action.type) {
-    case "fetchingTasks":
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case "taskfetched":
-      return {
-        ...state,
-        isLoading: false,
-        tasks: action.payload,
-      };
-    case "createTask":
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case "taskCreated":
-      return {
-        ...state,
-        isLoading: false,
-        tasks: [state.tasks, action.payload],
-      };
-    case "updateTask":
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case "deleteTask":
-      return {
-        ...state,
-      };
-    case "deleteAllTask":
-      return {
-        ...state,
-        isDeleting: true,
-      };
-    case "allTaskDeleted":
-      return {
-        ...state,
-        tasks: [],
-      };
-    default:
-      return state;
-  }
-};
+export default function MyTasks() {
+  const tasks = useWorkspaceData(loadTasks);
+  const [busy, setBusy] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const [error, setError] = useState("");
 
-const MyTasks = () => {
-  const naviagte = useNavigate();
-  const [state, dispatch] = useReducer(taskReducer, initialState);
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  async function fetchTasks() {
-    dispatch({ type: "fetchingTasks" });
-    const tasks = await guidyGet(apiRoutes.fetchTasks);
-    dispatch({ type: "taskfetched", payload: tasks.data });
-  }
-
-  async function createTask(task) {
+  async function updateTasks(action) {
+    if (busy) return false;
+    setBusy(true);
+    setError("");
     try {
-      dispatch({ type: "createTask" });
-      const createdTask = await guidyPost(apiRoutes.createTask, task);
-      dispatch({ type: "taskCreated", payload: createdTask });
-      toast.success("Task Added !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-      naviagte(0);
-    } catch (error) {
-      toast.error("No Server Response !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-    }
-  }
-
-  async function deleteTask(id) {
-    try {
-      dispatch({ type: "deletingTask" });
-      const deleteTask = await guidyDelete(apiRoutes.deleteTask(id));
-      dispatch({ type: "taskDeleted", payload: deleteTask });
-      toast.success("Task Deleted !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-
-      naviagte(0);
-    } catch (error) {
-      toast.error("No Server Response !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-    }
-  }
-
-  async function deleteAllTask() {
-    try {
-      console.log("working");
-      dispatch({ type: "deletetAllTasks" });
-      const deleteAllTask = await guidyDelete(apiRoutes.deleteAllTask);
-      dispatch({ type: "allTaskDeleted", payload: deleteAllTask });
-      toast.success("All Task Deleted !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-
-      naviagte(0);
-    } catch (error) {
-      toast.error("No Server Response !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
+      await action();
+      setConfirm(false);
+      tasks.retry();
+      return true;
+    } catch {
+      setError("The task change could not be saved. Try again.");
+      return false;
+    } finally {
+      setBusy(false);
     }
   }
 
   return (
-    <div className="myTasks">
-      <span>My Tasks</span>
-
-      {/* addtask form */}
-      <div className="addEditTask">
-        <Addtaskform addTask={createTask} />
-      </div>
-
-      {/* task List */}
-
-      {state.isLoading ? (
-        <div className="centerItem">
-          <div class="loader"></div>
+    <Workspace title="My tasks" description="Add, organize, and complete your personal tasks.">
+      <Panel title="Task list" wide>
+        <div className="workspace-actions workspace-task-toolbar">
+          <Addtaskform disabled={busy} addTask={(task) => updateTasks(() => guidyPost(apiRoutes.createTask, task))} />
+          <button type="button" className="workspace-secondary workspace-danger"
+            disabled={busy || !tasks.data?.length} onClick={() => setConfirm(true)}>Delete all tasks</button>
         </div>
-      ) : state.tasks.length > 0 ? (
-        state.tasks && (
-          <Tasklist
-            tasks={state.tasks}
-            deleteTask={deleteTask}
-            deleteAllTask={deleteAllTask}
-          />
-        )
-      ) : (
-        <p>No tasks added yet</p>
-      )}
-      {!state.isDeleting ? (
-        <button onClick={deleteAllTask} className="DATasks">
-          Delete All Tasks
-        </button>
-      ) : (
-        <p>Deleting...</p>
-      )}
-    </div>
+        {confirm && (
+          <div className="workspace-confirm">
+            <p>Delete every task in this list? This action cannot be undone.</p>
+            <div className="workspace-actions">
+              <button type="button" className="workspace-secondary" disabled={busy} onClick={() => setConfirm(false)}>Cancel</button>
+              <button type="button" className="workspace-button" disabled={busy}
+                onClick={() => updateTasks(() => guidyDelete(apiRoutes.deleteAllTask))}>
+                {busy ? "Deleting…" : "Confirm deletion"}
+              </button>
+            </div>
+          </div>
+        )}
+        {error && <p role="alert">{error}</p>}
+        <PanelState request={tasks} empty={tasks.data?.length === 0 && "No tasks added yet"}>
+          <Tasklist tasks={tasks.data ?? []} deleteTask={(id) => updateTasks(() => guidyDelete(apiRoutes.deleteTask(id)))} />
+        </PanelState>
+      </Panel>
+    </Workspace>
   );
-};
-
-export default MyTasks;
+}

@@ -3,17 +3,17 @@ import React from "react";
 import Sidebar from "./AdminSidebar";
 import Navbar from "../Navbar";
 import Sidepage3 from "../../routes/Sidepage3";
-
-const Admindashboard = (props) => {
+const Admindashboard = props => {
   return (
     <div className="admindashboard">
       <Sidebar />
       <div className="adminDash2">
         <Navbar Name={props.Name} />
-        <Sidepage3 />
+        <div className="workspace-scroll" role="region" aria-label="Dashboard content" tabIndex={0}>
+          <Sidepage3 />
+        </div>
       </div>
     </div>
   );
 };
-
 export default Admindashboard;

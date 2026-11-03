@@ -1,82 +1,36 @@
-import React, { useEffect, useReducer } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { guidyGet } from "../../Api/api.service";
 import apiRoutes from "../../Api/apiRoutes";
+import { Panel, PanelState, Workspace, useWorkspaceData } from "../Workspace";
 
-
-const initialState = {
-  isLoading:false,
-  grades:[]
-}
-
-const gradesReducer = (state,action)=>{
-  switch(action.type){
-    case "fetchingGrades":
-      return {
-        ...state,
-        isLoading:true,
-      }
-      case "gradesFetched":
-        return {
-          ...state,
-          grades:action.payload
-        }
-    default:
-      return initialState;
-  }
-}
-
-const MyGrades = () => {
-  const [state,dispatch] = useReducer(gradesReducer,initialState);
-
-  useEffect(() => {
-  }, []);
-
-  useEffect(() => {
-    fetchGrades();
-  }, []);
-
-  const fetchGrades = async () =>{
-    dispatch({type:"fetchingGrades"});
-    const grades = await guidyGet(apiRoutes.fetchGrades);
-    console.log(grades.data);
-    dispatch({type:"gradesFetched",payload:grades.data});
-
-  }
-
-  function getAverageGrades(grade){
-    return grade.quiz1 + grade.quiz2 + grade.midterm + grade.project + grade.final;
-  }
-
-  return (
-    <div className="mygrades">
-      <span>My Grades</span>
-
-      <table>
-        <tr>
-          <th>Sr.</th>
-          <th>Courses</th>
-          <th>Grades</th>
-        </tr>
-        {
-          state.grades.length===0?<p>There is no grades currenlty for you registered courses</p>:<div/>
-        }
-        {state.grades.map((grade, index) => {
-          return (
-            <>
-              <tr>
-                <td>{index + 1}</td>
-                <td>
-                  <NavLink to={`/userdashboard/grades/${grade.course._id}`} style={{color:"black"}}>{grade.course.name}</NavLink>
-                </td>
-                <td>{getAverageGrades(grade)}/100</td>
-              </tr>
-            </>
-          );
-        })}
-      </table>
-    </div>
-  );
+const loadGrades = async () => {
+  const data = (await guidyGet(apiRoutes.fetchGrades)).data;
+  if (!Array.isArray(data)) throw new Error("Invalid list response");
+  return data;
 };
+const assessments = ["quiz1", "quiz2", "midterm", "project", "final"];
 
-export default MyGrades;
+export default function MyGrades() {
+  const grades = useWorkspaceData(loadGrades);
+  return (
+    <Workspace title="My grades" description="Review recorded scores for your courses.">
+      <Panel title="Course grades" wide>
+        <PanelState request={grades} empty={grades.data?.length === 0 && "No grades available for your registered courses"}>
+          <div className="workspace-table">
+            <table>
+              <thead><tr><th>Course</th><th>Score</th></tr></thead>
+              <tbody>{grades.data?.map((grade) => (
+                <tr key={grade._id}>
+                  <td>{grade.course?._id
+                    ? <Link to={"/userdashboard/grades/" + grade.course._id}>{grade.course.name}</Link>
+                    : "Course unavailable"}</td>
+                  <td>{assessments.reduce((sum, field) => sum + (grade[field] ?? 0), 0)}/100</td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        </PanelState>
+      </Panel>
+    </Workspace>
+  );
+}

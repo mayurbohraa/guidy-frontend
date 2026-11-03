@@ -1,107 +1,48 @@
-import React, { useEffect, useState } from "react";
-import {
-  dropCourseApi,
-  endSemesterApi,
-  getRegistrationApi,
-} from "../../service/Registration.service";
+import { useState } from "react";
+import { dropCourseApi, endSemesterApi, getRegistrationApi } from "../../service/Registration.service";
+import { Panel, PanelState, Workspace, useWorkspaceData } from "../Workspace";
 
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+const loadSchedule = async () => (await getRegistrationApi()).data?.courseIds?.filter(Boolean) ?? [];
 
-const MySchedule = () => {
-  const Navigate = useNavigate();
-  const [regCourses, setRegCourses] = useState([]);
-  const [, setEndSem] = useState([]);
+export default function MySchedule() {
+  const schedule = useWorkspaceData(loadSchedule);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
-
-  const fetchCourses = async () => {
-    const courseResponse = await getRegistrationApi();
-    setRegCourses(courseResponse.data.courseIds);
-    console.log(courseResponse.data.courseIds);
-  };
-
-  const dropSemCourse = async (courseId) => {
+  async function updateSchedule(action) {
+    setBusy(true);
+    setError("");
     try {
-      const dropCourseResponse = await dropCourseApi(courseId);
-      fetchCourses();
-      console.log(dropCourseResponse);
-      toast.success("Course Droped !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-    } catch (err) {
-      console.log(err);
-      toast.error("No Server Response !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
+      await action();
+      schedule.retry();
+    } catch {
+      setError("Unable to update your schedule. Try again.");
+    } finally {
+      setBusy(false);
     }
-  };
-
-  const endSemester = async () => {
-    try {
-      const endSemResponse = await endSemesterApi();
-      console.log(endSemResponse);
-      setEndSem([]);
-      toast.success("Semester Ended !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-      Navigate(0);
-    } catch (err) {
-      console.log(err);
-      toast.error("No Server Response !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-    }
-  };
+  }
 
   return (
-    <div className="myschedule">
-      <span>My Schedule</span>
-      <p id="subheading">Your Registered Courses</p>
-      <table>
-        <tr>
-          <th>Sr.</th>
-          <th>Course name</th>
-          <th>Year</th>
-          <th>Semister</th>
-          <th>Action</th>
-        </tr>
-
-        {regCourses.map((course, index) => {
-          return (
-            <>
-              <tr>
-                <td>{index + 1}</td>
-                <td>{course.name}</td>
-                <td>{course.year}</td>
-                <td>{course.term}</td>
-                <td>
-                  <button onClick={() => dropSemCourse(course._id)}>
-                    Drop Course
-                  </button>
-                </td>
-              </tr>
-            </>
-          );
-        })}
-      </table>
-
-      <button id="semister" onClick={endSemester}>
-        End Semister
-      </button>
-    </div>
+    <Workspace title="My schedule" description="Manage your registered courses.">
+      <Panel title="Registered courses" link="/userdashboard/myroadmap" action="Browse courses" wide>
+        {error && <p role="alert">{error}</p>}
+        <PanelState request={schedule} empty={schedule.data?.length === 0 && "You have no registered courses yet."}>
+          <div className="workspace-table">
+            <table>
+              <thead><tr><th>Course</th><th>Year</th><th>Term</th><th>Action</th></tr></thead>
+              <tbody>{schedule.data?.map((course) => (
+                <tr key={course._id}>
+                  <td>{course.name}</td><td>{course.year ?? "—"}</td><td>{course.term || "—"}</td>
+                  <td><button type="button" className="workspace-secondary workspace-danger" disabled={busy}
+                    onClick={() => updateSchedule(() => dropCourseApi(course._id))}>Drop course</button></td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+          <button type="button" className="workspace-secondary workspace-danger workspace-end-semester" disabled={busy}
+            onClick={() => updateSchedule(endSemesterApi)}>End semester</button>
+        </PanelState>
+      </Panel>
+    </Workspace>
   );
-};
-
-export default MySchedule;
+}

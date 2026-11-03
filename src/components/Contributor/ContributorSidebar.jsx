@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
+
 import { NavLink } from "react-router-dom";
-
 import Logo from "../../assets/images/Logo.svg";
-
 import { SidebarData2 } from "../../data/data";
-
-const ContributorSidebar = (props) => {
-  const [selected, setSelected] = useState();
-
+const ContributorSidebar = () => {
   return (
     <div className="sidebar">
-      {/* logo */}
+
       <div className="logo">
-        <img src={Logo} alt="" />
+        <img
+          src={Logo}
+          alt="Guidy"
+        />
       </div>
 
-      {/* menu */}
-      <div className="menu">
-        {SidebarData2.map((item, index) => {
+
+      <nav className="menu" aria-label="Contributor navigation">
+
+        {SidebarData2.map((item) => {
           return (
-            <div key={index}>
+            <div key={item.to}>
               <NavLink
                 to={item.to}
-                className={selected === index ? "menuItem active" : "menuItem"}
-                onClick={() => setSelected(index)}
+                end={item.to.endsWith("/")}
+                className={({
+                  isActive
+                }) => isActive ? "menuItem active" : "menuItem"}
               >
                 <item.icon />
                 <span>{item.name}</span>
@@ -31,9 +33,8 @@ const ContributorSidebar = (props) => {
             </div>
           );
         })}
-      </div>
+      </nav>
     </div>
   );
 };
-
 export default ContributorSidebar;

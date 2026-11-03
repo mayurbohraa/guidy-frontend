@@ -1,102 +1,56 @@
+import FieldHelp from "./FieldHelp";
 import React, { useEffect, useRef, useState } from "react";
+
 import Mainlogo from "./Mainlogo";
-
-import { UilCheck, UilTimes, UilInfoCircle } from "@iconscout/react-unicons";
-
+import { UilCheck, UilTimes } from "@iconscout/react-unicons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,20}$/;
 const ResetPassword = () => {
   const userRef = useRef();
-  const errRef = useRef();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,20}$/;
-
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
-
   const [matchPwd, setMatchPwd] = useState("");
   const [validMatch, setValidMatch] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
-
   useEffect(() => {
     userRef.current.focus();
   }, []);
-
   useEffect(() => {
     const Password = PWD_REGEX.test(pwd);
-    console.log(Password);
-    console.log(pwd);
     setValidPwd(Password);
     const match = pwd === matchPwd;
     setValidMatch(match);
-  }, [PWD_REGEX, pwd, matchPwd]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const V = PWD_REGEX.test(pwd);
-
-    if (!V) {
-      toast.error("Invalid Entry !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-
-      return;
-    }
-
-    try {
-      toast.success("Password Reset Successfull !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
-      });
-    } catch (err) {
-      if (!err?.response) {
-        toast.error("No Server Response !", {
-          position: "top-right",
-          theme: "colored",
-          toastId: 1,
-        });
-      } else {
-        toast.error("Password Reset Failed !", {
-          position: "top-right",
-          theme: "colored",
-          toastId: 1,
-        });
-      }
-      errRef.current.focus();
-    }
+  }, [pwd, matchPwd]);
+  const handleSubmit = event => {
+    event.preventDefault();
+    toast.info("Password recovery is unavailable. Contact your Guidy administrator for help.");
   };
-
   return (
     <div className="resetpassword">
-      {/* main logo page */}
+
       <Mainlogo />
 
-      {/* reset password form */}
+
       <div className="rpform">
-        <form action="" onSubmit={handleSubmit}>
+        <form
+          action=""
+          onSubmit={handleSubmit}
+        >
           <h1>Enter Password</h1>
           <label>
-            <input
+            <FieldHelp id="pwdnote" label="New password" hint="8–20 characters with uppercase, lowercase, a number, and at least one of ! @ # $ %."><input
               type="password"
               id="password"
               name="password"
               ref={userRef}
-              onChange={(e) => setPwd(e.target.value)}
+              onChange={e => setPwd(e.target.value)}
               autoComplete="off"
               aria-invalid={validPwd ? "false" : "true"}
-              aria-describedby="pwsnote"
+              aria-describedby="pwdnote"
               placeholder="Enter New Password"
+              aria-label="Enter New Password"
               required
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-            />
+            /></FieldHelp>
             <span className={validPwd ? "valid" : "hide"}>
               <UilCheck />
             </span>
@@ -104,33 +58,21 @@ const ResetPassword = () => {
               <UilTimes />
             </span>
             <br />
-            <p
-              id="pwdnote"
-              className={
-                pwdFocus && pwd && !validPwd ? "instructions" : "offscreen"
-              }
-            >
-              <UilInfoCircle /> 8 to 20 characters. Must include uppercase and
-              <br /> lowercase letters, a number and a special character. <br />
-              Allowed special characters: @,#,$,%.
-            </p>
           </label>
 
           <label>
-            <input
+            <FieldHelp id="matchpwdnote" label="Confirm password" hint="Enter exactly the same password as above."><input
               type="password"
               id="confirm_password"
               name="confirm_password"
-              ref={userRef}
-              onChange={(e) => setMatchPwd(e.target.value)}
+              onChange={e => setMatchPwd(e.target.value)}
               autoComplete="off"
               aria-invalid={validMatch ? "false" : "true"}
               aria-describedby="matchpwdnote"
               placeholder="Confirm Password"
+              aria-label="Confirm Password"
               required
-              onFocus={() => setMatchFocus(true)}
-              onBlur={() => setMatchFocus(false)}
-            />
+            /></FieldHelp>
             <span className={validMatch && matchPwd ? "valid" : "hide"}>
               <UilCheck />
             </span>
@@ -138,14 +80,6 @@ const ResetPassword = () => {
               <UilTimes />
             </span>
             <br />
-            <p
-              id="matchpwdnote"
-              className={
-                matchFocus && !validMatch ? "instructions" : "offscreen"
-              }
-            >
-              <UilInfoCircle /> Must match the first password field
-            </p>
           </label>
           <button type="submit">Reset Password</button>
         </form>
@@ -153,5 +87,4 @@ const ResetPassword = () => {
     </div>
   );
 };
-
 export default ResetPassword;

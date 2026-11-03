@@ -1,16 +1,8 @@
-import React from 'react'
+import React from "react";
 
-const Popup2 = (props) => {
-    return (
-      <div className="popup-box2">
-        <div className="box2">
-          <span className="close-icon" onClick={props.handleClose}>
-            x
-          </span>
-          {props.content}
-        </div>
-      </div>
-    );
-  };
-
-export default Popup2
+import Popup from "./Popup";
+const Popup2 = props => <Popup
+  {...props}
+  compact
+/>;
+export default Popup2;

@@ -1,148 +1,93 @@
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import Profile from "../assets/images/Profile.png";
-import { UilSearch, UilBell } from "@iconscout/react-unicons";
+import { UilBell, UilSearch } from "@iconscout/react-unicons";
 import { ProfileDD } from "../data/data";
-import { useEffect } from "react";
+import courses from "../data/Searchbardata.json";
+import { getCurrentUser, getDashboardPath } from "../service/Authentication.service";
 import { guidyGet } from "../Api/api.service";
 import apiRoutes from "../Api/apiRoutes";
+import { PanelState, useWorkspaceData } from "./Workspace";
 
-const data = require("../data/Searchbardata.json");
-
-const Navbar = () => {
-  const [selected2, setSelected2] = useState();
-  const [value, setValue] = useState("");
-  const [notifications,setNotification] = useState([]);
-
-  useEffect(()=>{
-    fetchNotifications();
-  },[]);
-  
-  async function fetchNotifications(){
-    const notifi = await guidyGet(apiRoutes.getNotifications);
-    console.log(notifi);
-    setNotification(notifi.data);
-  }
-
-  let user;
-  const getuser = localStorage.getItem("login_status");
-  // console.log(getuser);
-  if (getuser && getuser.length) {
-    user = JSON.parse(getuser);
-    // console.log(user);
-  }
-
-  const onChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  const onSearch = (searchTerm) => {
-    setValue(searchTerm);
-    // our api to fetch the search result
-    console.log("search ", searchTerm);
-  };
-
-  return (
-    <div className="navbar">
-      {/* searchbar */}
-      <div className="searchbar">
-        <span>
-          <UilSearch />
-        </span>
-        <div className="search-container">
-          <input
-            type="search"
-            name=""
-            id="search"
-            placeholder="Search"
-            value={value}
-            onChange={onChange}
-          />
-          <div className="dropdown">
-            {data
-              .filter((item) => {
-                const searchTerm = value.toLowerCase();
-                const fullName = item.heading.toLowerCase();
-
-                return (
-                  searchTerm &&
-                  fullName.startsWith(searchTerm) &&
-                  fullName !== searchTerm
-                );
-              })
-              .slice(0, 10)
-              .map((item) => (
-                <div
-                  onClick={() => onSearch(item.heading)}
-                  className="dropdown-row"
-                  key={item.heading}
-                >
-                  {item.heading}
-                </div>
-              ))}
-          </div>
-        </div>
-      </div>
-
-      {/* notification */}
-
-      <div className="notification dropdown">
-        <button className="dropbtn">
-          <span>
-            <UilBell />
-          </span>
-          <div className="counter">
-            <span>{notifications.length}</span>
-          </div>
-        </button>
-        <div className="notificationbox">
-          {notifications.map((item, index) => {
-            return (
-              <div key={index}>
-                <ul>
-                  <li>
-                    <h5>{item.title}</h5>
-                    <span style={{ marginRight: "10px" }}>{item.time}</span>
-                    <span>{(new Date(item.createdAt)).toLocaleString()}</span>
-                  </li>
-                </ul>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Profile dropdown */}
-      <div className="profile dropdown">
-        <button className="dropbtn">
-          <span>
-            Hello {user.firstName}
-            <br />
-            <span>Welcome Back!</span>
-          </span>
-          <img src={Profile} alt="" />
-        </button>
-        <div className="dropdown-content">
-          {ProfileDD.map((item, index) => {
-            return (
-              <div key={index}>
-                <NavLink
-                  to={item.to}
-                  className={
-                    selected2 === index ? "menuItem2 active" : "menuItem2"
-                  }
-                  onClick={() => setSelected2(index)}
-                >
-                  <item.icon />
-                  <span>{item.name}</span>
-                </NavLink>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
+const loadNotifications = async () => {
+  const { data } = await guidyGet(apiRoutes.getNotifications);
+  if (!Array.isArray(data)) throw new Error("Invalid notification list");
+  return data;
 };
 
-export default Navbar;
+export default function Navbar() {
+  const [search, setSearch] = useState("");
+  const [open, setOpen] = useState("");
+  const headerRef = useRef();
+  const notifications = useWorkspaceData(loadNotifications);
+
+  useEffect(() => {
+    const closeOnOutsideClick = (event) => {
+      if (!headerRef.current?.contains(event.target)) setOpen("");
+    };
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
+  }, []);
+  const [user, setUser] = useState(getCurrentUser);
+  const name = [user?.firstName, user?.lastName].filter(Boolean).join(" ") || "Guidy account";
+  const initials = name.split(" ").slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+  const unread = notifications.data?.filter((item) => !item.isRead).length ?? 0;
+  useEffect(() => {
+    const refreshAccount = () => setUser(getCurrentUser());
+    window.addEventListener("guidy:account-updated", refreshAccount);
+    return () => window.removeEventListener("guidy:account-updated", refreshAccount);
+  }, []);
+
+  const toggle = (panel) => setOpen((current) => current === panel ? "" : panel);
+
+  return (
+    <header ref={headerRef} className="navbar workspace-navbar" onBlur={(event) => {
+      if (!event.currentTarget.contains(event.relatedTarget)) setOpen("");
+    }} onKeyDown={(event) => {
+      if (event.key === "Escape") {
+        event.currentTarget.querySelector('[aria-expanded="true"]')?.focus();
+        setOpen("");
+      }
+    }}>
+      <div className="workspace-search">
+        <UilSearch aria-hidden="true" />
+        <input type="search" list="guidy-courses" aria-label="Search courses" placeholder="Find a course" value={search}
+          onChange={(event) => setSearch(event.target.value)} />
+        <datalist id="guidy-courses">
+          {[...new Set(courses.map((item) => item.heading))].map((course) => <option key={course} value={course} />)}
+        </datalist>
+      </div>
+      <div className="workspace-menu">
+        <button type="button" className="workspace-header-button" aria-expanded={open === "notifications"}
+          aria-controls="guidy-notifications" aria-label={unread ? "Notifications, " + unread + " unread" : "Notifications"}
+          onClick={() => toggle("notifications")}>
+          <UilBell aria-hidden="true" />{unread > 0 && <span className="workspace-badge">{unread}</span>}
+        </button>
+        <section id="guidy-notifications" className="workspace-popover" hidden={open !== "notifications"}>
+          <h2>Notifications</h2>
+          <PanelState request={notifications} empty={notifications.data?.length === 0 && "You have no notifications yet."}>
+            <ul className="workspace-list">{notifications.data?.map((item) => (
+              <li key={item._id}><strong>{item.title}</strong>
+                {item.createdAt && <span>{new Date(item.createdAt).toLocaleDateString()}</span>}
+              </li>
+            ))}</ul>
+          </PanelState>
+        </section>
+      </div>
+      <div className="workspace-menu">
+        <button type="button" className="workspace-header-button workspace-account" aria-expanded={open === "profile"}
+          aria-controls="guidy-profile" aria-label={name} onClick={() => toggle("profile")}>
+          <span className="workspace-avatar" aria-hidden="true">{initials}</span>
+          <span className="workspace-account-text">
+            <strong title={name}>{name}</strong>
+            <small>{user?.role || "Account"}</small>
+          </span>
+        </button>
+        <div id="guidy-profile" className="workspace-popover workspace-profile-links" hidden={open !== "profile"}>
+          {ProfileDD.map((item) => <NavLink key={item.to} to={item.to === "/viewprofile" ? getDashboardPath(user?.role) + "/myprofile" : item.to} onClick={() => setOpen("")}>
+            <item.icon aria-hidden="true" />{item.name}
+          </NavLink>)}
+        </div>
+      </div>
+    </header>
+  );
+}

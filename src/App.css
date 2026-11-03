@@ -12,7 +12,7 @@
   border-radius: 10px;
   width: 93%;
   height: 93%;
-  display: grid;  
+  display: grid;
 }
 
 /* calender */
@@ -24,3 +24,18 @@
 
 
 
+
+@media (max-width: 760px) {
+  .App {
+    height: auto;
+    min-height: 100vh;
+    padding-block: 1rem;
+    box-sizing: border-box;
+  }
+
+  .AppGlass {
+    height: auto;
+    min-height: calc(100vh - 2rem);
+    min-width: 0;
+  }
+}

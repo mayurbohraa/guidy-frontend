@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
   const history = useNavigate();
-
-  const deleteLT = (e) => {
+  useEffect(() => {
+    localStorage.removeItem("login_status");
+    localStorage.removeItem("token_status");
+  }, []);
+  const deleteLT = e => {
     e.preventDefault();
     localStorage.removeItem("login_status");
     localStorage.removeItem("token_status");
@@ -17,5 +21,4 @@ const Logout = () => {
     </div>
   );
 };
-
 export default Logout;

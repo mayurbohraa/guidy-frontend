@@ -1,188 +1,131 @@
-import React, { useEffect, useState, useRef } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { UilCheck, UilTimes, UilInfoCircle } from "@iconscout/react-unicons";
-
-import Mainlogo from "./Mainlogo";
-import { LoginApi } from "../service/Authentication.service";
-
-import { toast } from "react-toastify";
+import FieldHelp from "./FieldHelp";
+import { useEffect, useRef, useState } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import Logo from "../assets/images/Logo.svg";
+import Illustration from "../assets/images/GuidyLoginIllustrationCutout.png";
+import { getDashboardPath, LoginApi } from "../service/Authentication.service";
 import "react-toastify/dist/ReactToastify.css";
 
-const Login = () => {
+function fieldError(input) {
+  if (!input.value.trim()) {
+    return input.name === "email" ? "Enter your email address." : "Enter your password.";
+  }
+  if (input.name === "email" && input.validity.typeMismatch) {
+    return "Enter a valid email address, e.g. name@qu.edu.qa.";
+  }
+  return "";
+}
+
+export default function Login() {
   const navigate = useNavigate();
-  const userRef = useRef();
-  const errRef = useRef();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,20}$/;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const EMAIL_REGEX =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[qu]+(?:\.[edu]+)+(?:\.[qa]+)*$/;
-
-  const [email, setEmail] = useState("");
-  const [validEmail, setValidEmail] = useState(false);
-  const [emailFocus, setEmailFocus] = useState(false);
-
-  const [pwd, setPwd] = useState("");
-  const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
+  const location = useLocation();
+  const errorRef = useRef();
+  const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    userRef.current.focus();
-  }, []);
+    if (error) errorRef.current?.focus();
+  }, [error]);
 
-  useEffect(() => {
-    const Email = EMAIL_REGEX.test(email);
-    const Password = PWD_REGEX.test(pwd);
-    setValidEmail(Email);
-    setValidPwd(Password);
-  }, [email, EMAIL_REGEX, PWD_REGEX, pwd]);
+  function validateField(event) {
+    const input = event.target;
+    setErrors((current) => ({ ...current, [input.name]: fieldError(input) }));
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
+    if (submitting) return;
+    const form = event.currentTarget;
+    const nextErrors = {
+      email: fieldError(form.elements.email),
+      password: fieldError(form.elements.password),
+    };
+    setErrors(nextErrors);
+    setError("");
+    const invalidField = Object.keys(nextErrors).find((name) => nextErrors[name]);
+    if (invalidField) {
+      form.elements[invalidField].focus();
+      return;
+    }
+
+    const fields = new FormData(form);
+    setSubmitting(true);
 
     try {
-      const body = { email: email.trim(), password: pwd.trim() };
-      const response = await LoginApi(body);
-
-      localStorage.setItem("login_status", JSON.stringify(response.data.user));
-      localStorage.setItem("token_status", response.data.token);
-      toast.success("Login Successfull !", {
-        position: "top-right",
-        theme: "colored",
-        toastId: 1,
+      const { data } = await LoginApi({
+        email: fields.get("email").trim(),
+        // Preserve the password exactly as entered for existing accounts.
+        password: fields.get("password"),
       });
-      if (response.data.user.role === "student") {
-        navigate("/userdashboard");
-      } else if (response.data.user.role === "contributor") {
-        navigate("/contributordashboard", 2000);
-      } else if (response.data.user.role === "admin") {
-        navigate("/admindashboard");
+      const destination = getDashboardPath(data?.user?.role);
+      if (destination === "/" || typeof data?.token !== "string" || !data.token) {
+        setError("This account could not be signed in. Try again or contact your administrator.");
+        return;
       }
-    } catch (err) {
-      if (!err?.response) {
-        toast.error("No Server Response !", {
-          position: "top-right",
-          theme: "colored",
-          toastId: 1,
-        });
-      } else if (err.response?.status === 400) {
-        toast.warn(err.response?.message, {
-          position: "top-right",
-          theme: "colored",
-          toastId: 1,
-        });
+      localStorage.setItem("login_status", JSON.stringify(data.user));
+      localStorage.setItem("token_status", data.token);
+      navigate(destination);
+    } catch (failure) {
+      const status = failure.response?.status;
+      if (status === 400 || status === 401) {
+        setError("Check your email and password and try again.");
+      } else if (status === 429) {
+        setError("Too many sign-in attempts. Please wait and try again.");
       } else {
-        toast.error("Login Failed !", {
-          position: toast.POSITION.TOP_RIGHT,
-          theme: "colored",
-          toastId: 1,
-        });
+        setError("Guidy could not connect right now. Please try again.");
       }
-      errRef.current.focus();
+    } finally {
+      setSubmitting(false);
     }
-  };
+  }
+
+  function clearError(event) {
+    const name = event.target.name;
+    setErrors((current) => ({ ...current, [name]: "" }));
+    setError("");
+  }
 
   return (
-    <div className="login">
-      {/* Main logo page */}
-      <Mainlogo />
-
-      {/* login form */}
+    <main className="login guidy-login">
+      <div className="guidy-login-art">
+        <img className="guidy-login-logo" src={Logo} alt="Guidy" />
+        <img className="guidy-login-illustration" src={Illustration} width="1536" height="1024" alt="" />
+      </div>
       <div className="login-form">
-        <form action="" onSubmit={handleSubmit}>
-          <h1>Login</h1>
+        <form onSubmit={handleSubmit} aria-busy={submitting} noValidate>
+          <div>
+            <p className="guidy-login-intro">Welcome back</p>
+            <h1>Login</h1>
+          </div>
+          {location.state?.accountCreated && <p role="status">Account created. You can now log in.</p>}
           <div className="details">
-            <label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                ref={userRef}
-                onChange={(e) => setEmail(e.target.value)}
-                autoComplete="off"
-                aria-invalid={validEmail ? "false" : "true"}
-                aria-describedby="emailnote"
-                placeholder="Email"
-                required
-                onFocus={() => setEmailFocus(true)}
-                onBlur={() => setEmailFocus(false)}
-              />
-              <span className={validEmail ? "valid" : "hide"}>
-                <UilCheck />
-              </span>
-              <span className={validEmail || !email ? "hide" : "invalid"}>
-                <UilTimes />
-              </span>
-              <br />
-              <p
-                id="emailnote"
-                className={
-                  emailFocus && email && !validEmail
-                    ? "instructions"
-                    : "offscreen"
-                }
-              >
-                <UilInfoCircle /> Email format : abc@qu.edu.qa
-              </p>
-            </label>
-            <label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={pwd}
-                ref={userRef}
-                onChange={(e) => setPwd(e.target.value)}
-                autoComplete="off"
-                aria-invalid={validPwd ? "false" : "true"}
-                aria-describedby="pwsnote"
-                placeholder="Password"
-                required
-                onFocus={() => setPwdFocus(true)}
-                onBlur={() => setPwdFocus(false)}
-              />
-              <span className={validPwd ? "valid" : "hide"}>
-                <UilCheck />
-              </span>
-              <span className={validPwd || !pwd ? "hide" : "invalid"}>
-                <UilTimes />
-              </span>
-              <br />
-              <p
-                id="pwdnote"
-                className={
-                  pwdFocus && pwd && !validPwd ? "instructions" : "offscreen"
-                }
-              >
-                <UilInfoCircle /> Invalid password
-              </p>
-            </label> 
-
-            <NavLink to={"/forgotpassword"} className="navforgotpass">
-              Forgot Password
-            </NavLink>
-
-            <button
-              type="submit"
-              disabled={!validEmail || !validPwd ? true : false}
-            >
-              LogIn
-            </button>
+            <div className="guidy-auth-field"><label htmlFor="login-email">Email</label>
+              <FieldHelp id="login-email-hint" label="Email" hint="Use your registered university email, e.g. name@qu.edu.qa.">
+              <input id="login-email" type="email" name="email" autoComplete="username" required disabled={submitting}
+                aria-invalid={Boolean(errors.email)} aria-describedby={"login-email-hint" + (errors.email ? " login-email-error" : "")}
+                onBlur={validateField} onChange={clearError} />
+              </FieldHelp>
+              {errors.email && <span className="guidy-field-error" id="login-email-error">{errors.email}</span>}
+            </div>
+            <div className="guidy-auth-field"><label htmlFor="login-password">Password</label>
+              <FieldHelp id="login-password-hint" label="Password" hint="Enter your existing password exactly; passwords are case-sensitive.">
+              <input id="login-password" type="password" name="password" autoComplete="current-password" required disabled={submitting}
+                aria-invalid={Boolean(errors.password)} aria-describedby={"login-password-hint" + (errors.password ? " login-password-error" : "")}
+                onBlur={validateField} onChange={clearError} />
+              </FieldHelp>
+              {errors.password && <span className="guidy-field-error" id="login-password-error">{errors.password}</span>}
+            </div>
+            <NavLink to="/forgotpassword" className="navforgotpass">Forgot password?</NavLink>
+            {error && <p ref={errorRef} className="guidy-login-error" role="alert" tabIndex={-1}>{error}</p>}
+            <button type="submit" disabled={submitting}>{submitting ? "Signing in…" : "Log in"}</button>
           </div>
-          <div className="login-navigation">
-            <span>
-              Don't have an account ?{" "}
-              <NavLink to={"/signup"} className="navsignup">
-                SignUp
-              </NavLink>
-            </span>
-          </div>
+          <p className="login-navigation">
+            Don't have an account?{" "}
+            <NavLink to="/signup" className="navsignup">Create your account</NavLink>
+          </p>
         </form>
       </div>
-    </div>
+    </main>
   );
-};
-
-export default Login;
+}

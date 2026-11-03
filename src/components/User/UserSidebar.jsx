@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
+
 import { NavLink } from "react-router-dom";
-
 import Logo from "../../assets/images/Logo.svg";
-
 import { SidebarData } from "../../data/data";
-
-const UserSidebar = (props) => {
-  const [selected, setSelected] = useState();
-
+const UserSidebar = () => {
   return (
     <div className="sidebar">
-      {/* logo */}
+
       <div className="logo">
-        <img src={Logo} alt="" />
+        <img
+          src={Logo}
+          alt="Guidy"
+        />
       </div>
 
-      {/* menu */}
-      <div className="menu">
-        {SidebarData.map((item, index) => {
+
+      <nav className="menu" aria-label="User navigation">
+
+        {SidebarData.map((item) => {
           return (
-            <div key={index}>
+            <div key={item.to}>
               <NavLink
                 to={item.to}
-                className={selected === index ? "menuItem active" : "menuItem"}
-                onClick={() => setSelected(index)}
+                end={item.to.endsWith("/")}
+                className={({
+                  isActive
+                }) => isActive ? "menuItem active" : "menuItem"}
               >
                 <item.icon />
                 <span>{item.name}</span>
@@ -31,9 +33,8 @@ const UserSidebar = (props) => {
             </div>
           );
         })}
-      </div>
+      </nav>
     </div>
   );
 };
-
 export default UserSidebar;

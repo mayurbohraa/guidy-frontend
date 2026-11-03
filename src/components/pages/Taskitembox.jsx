@@ -1,13 +1,24 @@
+import { guidyPut } from "../../Api/api.service";
+
+import apiRoutes from "../../Api/apiRoutes";
+import { toast } from "react-toastify";
 import React, { useState } from "react";
-
 import { UilTrashAlt } from "@iconscout/react-unicons";
-
-const Taskitembox = ({ task, deleteTask }) => {
-  const [isChecked1, setIsChecked1] = useState(task.checked);
-  const handleCheckboxChange = (e) => {
-    setIsChecked1(!isChecked1);
+const Taskitembox = ({
+  task,
+  deleteTask
+}) => {
+  const [isChecked1, setIsChecked1] = useState(Boolean(task.checked));
+  const handleCheckboxChange = async () => {
+    try {
+      const response = await guidyPut(apiRoutes.updateTask(task._id), {
+        checked: !isChecked1
+      });
+      setIsChecked1(Boolean(response.data.checked));
+    } catch {
+      toast.error("Unable to update task");
+    }
   };
-
   return (
     <div className="taskitembox">
       <li className="task">
@@ -20,7 +31,10 @@ const Taskitembox = ({ task, deleteTask }) => {
             name={task.taskDescription}
             id={task._id}
           />
-          <label htmlFor={task._id} className="label">
+          <label
+            htmlFor={task._id}
+            className="label"
+          >
             {task.taskDescription}
           </label>
         </div>
@@ -40,5 +54,4 @@ const Taskitembox = ({ task, deleteTask }) => {
     </div>
   );
 };
-
 export default Taskitembox;

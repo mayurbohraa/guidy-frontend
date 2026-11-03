@@ -1,83 +1,71 @@
-﻿# Guidy Frontend
+# Guidy Frontend
 
-## Project Overview
+## About the project
 
-Guidy is an academic tracker built for university students to manage courses, schedules, notebooks, grades, and learning resources in one place. The application includes role-based access for students, contributors, and administrators, with a polished UI that emphasizes clean navigation, responsive layout, and easy content management.
+Guidy is an academic tracker for university students. The web app brings schedules, tasks, notes, grades, and study materials together, with dedicated dashboards for students, contributors, and administrators.
 
-This frontend was designed and developed with a focus on:
-- simplicity and clean navigation
-- role-specific dashboards for students, contributors, and admins
-- cross-device compatibility and responsive layouts
-- integration with backend APIs for authentication, tasks, notebooks, and resources
+## Key features
 
-## Key Features
+- Login and signup for eligible university accounts, with navigation based on the account role.
+- Course registration, schedules, calendar events, tasks with saved completion state, notebooks, and grade tracking.
+- Resource submission for contributors, moderation for administrators, and downloads for signed-in users.
 
-- User authentication with login, signup, forgot password, and reset password flows
-- Student dashboard with:
-  - schedule view and calendar integration
-  - task creation, listing, and deletion
-  - notebook entry submission and review
-  - grades view and course-level performance tracking
-  - learning resources browsing
-- Contributor dashboard with:
-  - resource upload by year, term, and subject
-  - resource management via contributor workflows
-- Admin dashboard with:
-  - request review and approval/denial for uploaded resources
-  - task and calendar oversight
-- Responsive UI built using React, React Router, and modern component-driven design
-- Toast notifications for success/error feedback
+The Light workspace UI includes role-specific analytics, a review queue, notification and profile panels, and explicit loading, empty, and error states. Failed list requests offer retry, and expired sessions offer a sign-in action. My Profile stays inside the dashboard and supports saving contact details.
 
-## Project Structure
+The header and navigation stay in place while the main dashboard content scrolls with a theme-matched scrollbar. Signup uses the original logo and approved illustration, with scrolling confined to the form panel. Field information icons show format guidance on hover or keyboard focus without a hover background; touch users can tap the icon. Validation errors remain associated with their fields.
 
-- `src/App.js` - main application router and page entry points
-- `src/routes/Sidepage.jsx` - student dashboard routing
-- `src/routes/Sidepage2.jsx` - contributor dashboard routing
-- `src/routes/Sidepage3.jsx` - admin dashboard routing
-- `src/components` - reusable and role-specific UI components
-- `src/Api` - Axios service and API route configuration
-- `src/service` - authentication and registration service helpers
+## Live website
 
-## Tech Stack
+https://guidy-frontend-bice.vercel.app/
 
-- React 18
-- React Router DOM
-- Axios
-- React Toastify
-- React Notifications
-- Recharts
-- React Calendar
-- Font Awesome / Unicons
+## GitHub repositories
 
-## Installation
+- [Guidy Frontend](https://github.com/mayurbohra9/guidy_frontend)
+- [Guidy Backend](https://github.com/mayurbohra9/guidy_backend)
 
-1. Clone or open the repository in your workspace.
-2. Install dependencies:
+## Tech stack
 
-```bash
-npm install
+React 18, Create React App, React Router, Axios, React Calendar, Recharts, React Toastify, and CSS.
+
+## Prerequisites
+
+- Node.js 24 and npm.
+- A running Guidy API for account and dashboard workflows. For local development, start the API using the setup instructions in the Backend repository.
+
+## Installation and setup
+
+1. Open a terminal in the frontend repository.
+2. Install dependencies with `npm ci`.
+3. Start the local Guidy API on port 4000 or configure an alternate API endpoint.
+4. Run `npm start` and open `http://localhost:3000`.
+
+## Environment configuration
+
+Create a `.env.local` file if needed. Set `REACT_APP_API_URL` in `.env.local` or in the hosting environment to use a different API. Include the `/api/v1` suffix. With the variable unset, development requests use the local proxy on port 4000 and production uses the configured hosted default. Create React App embeds this value at build time, so use only a public API URL.
+
+## Running locally
+
+| Command | Purpose |
+|---|---|
+| `npm run lint` | Check code with ESLint. |
+| `npm start` | Start the development server. |
+| `npm test -- --watchAll=false --runInBand` | Run the frontend regression suite once. |
+| `npm run build` | Write the production bundle to `build/`. |
+
+## Project structure
+
+```text
+Frontend/
+├── public/           HTML shell and favicon
+├── src/
+│   ├── Api/          Axios client and API route definitions
+│   ├── assets/       App graphics and styles
+│   ├── components/   Account screens and role-specific dashboards
+│   ├── routes/       Dashboard routes
+│   ├── service/      API helpers
+│   ├── App.js        Application routes
+│   └── App.test.js   Frontend regression tests
+├── .gitignore
+├── package.json
+└── README.md
 ```
-
-## Run Locally
-
-Start the development server:
-
-```bash
-npm start
-```
-
-Open the app at `http://localhost:3000`.
-
-## Preconfigured Login Details
-
-Use the following credentials to access each role:
-
-- Admin: Email: `guidyadmin@qu.edu.qa` / Password: `Guidyadmin@123`
-- Contributor: Email: `guidycontributor@qu.edu.qa` / Password: `Guidycontributor@123`
-- Student: Email: `guidystudent@qu.edu.qa` / Password: `Guidystudent@123`
-
-## Notes
-
-- The app expects a backend API proxied through `http://localhost:4000/` & `https://guidy-backend.vercel.app/api/v1`.
-- Authentication state is stored in `localStorage` and role-based navigation is handled through React Router.
-- The signup screen supports user role selection for general registration.

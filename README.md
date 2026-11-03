@@ -20,8 +20,8 @@ https://guidy-frontend-bice.vercel.app/
 
 ## GitHub repositories
 
-- [Guidy Frontend](https://github.com/mayurbohra9/guidy_frontend)
-- [Guidy Backend](https://github.com/mayurbohra9/guidy_backend)
+- [Guidy Frontend](https://github.com/mayurbohraa/guidy_frontend)
+- [Guidy Backend](https://github.com/mayurbohraa/guidy_backend)
 
 ## Tech stack
 

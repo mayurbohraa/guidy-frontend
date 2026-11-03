@@ -1,3 +1,4 @@
+import LoadingState from "./components/LoadingState";
 import "react-toastify/dist/ReactToastify.css";
 import {
   getCurrentUser,
@@ -72,7 +73,7 @@ function App() {
       <div className="AppGlass">
         <BrowserRouter>
           <ScreenBoundary>
-            <Suspense fallback={<p role="status">Loading dashboard...</p>}>
+            <Suspense fallback={<LoadingState fullPage label="Opening your workspace…" />}>
               <Routes>
                 <Route exact path="/" element={<Login />} />
                 <Route

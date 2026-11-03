@@ -1935,3 +1935,26 @@
 }
 @media (max-width: 360px) { .workspace-summary { grid-template-columns: minmax(0,1fr); } }
 @media (prefers-reduced-motion: reduce) { .workspace-navigation { transition: none; } }
+
+
+/* Route and panel loading use the same visual identity as the ready workspace. */
+.guidy-loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  color: var(--guidy-muted);
+  background: #faf6f4;
+  text-align: center;
+}
+.guidy-loading-logo { width: min(10rem, 55vw); height: auto; margin-bottom: .5rem; }
+.guidy-loading-inline { display: flex; align-items: center; gap: .65rem; padding: 1.25rem 0; color: var(--guidy-muted); }
+.guidy-loading-spinner { display: inline-block; width: 1.5rem; height: 1.5rem; flex-shrink: 0; box-sizing: border-box; border: 2px solid var(--guidy-line); border-top-color: var(--guidy-accent); border-radius: 50%; animation: guidy-loading-spin .8s linear infinite; }
+.guidy-loading-screen .guidy-loading-spinner { width: 2rem; height: 2rem; }
+@keyframes guidy-loading-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .guidy-loading-spinner { animation: none; } }

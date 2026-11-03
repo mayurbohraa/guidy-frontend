@@ -15,6 +15,7 @@ This React application was developed through a freelance engagement for a studen
 
 - Header search opens matching pages and records available to the signed-in role. Use the arrow keys and Enter, or select a result.
 - Logout opens a confirmation dialog inside the dashboard. Signed-in users can change their password from My Profile.
+- Route reloads show a branded loading screen, with matching inline loaders for data panels.
 - Dashboard summaries use API records, with separate loading, empty, error, and expired-session states.
 - Calendar selection updates the event form; events are sorted and can be filtered by the selected date.
 - My Profile opens inside the dashboard and refreshes the account header after saved changes.

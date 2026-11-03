@@ -1,3 +1,4 @@
+import LoadingState from "./LoadingState";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -33,7 +34,7 @@ export function Panel({ title, link, action, children, wide = false }) {
 }
 
 export function PanelState({ request, empty, children }) {
-  if (request.status === "loading") return <p className="workspace-state" role="status">Loading…</p>;
+  if (request.status === "loading") return <LoadingState />;
   if (request.status === "error") {
     return (
       <div className="workspace-state" role="alert">

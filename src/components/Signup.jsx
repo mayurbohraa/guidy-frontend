@@ -1,8 +1,7 @@
+import AuthBranding from "./AuthBranding";
 import FieldHelp from "./FieldHelp";
 import { useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Logo from "../assets/images/Logo.svg";
-import Illustration from "../assets/images/GuidyLoginIllustrationCutout.png";
 import { SignupApi } from "../service/Authentication.service";
 
 const fields = [
@@ -54,11 +53,7 @@ export default function Signup() {
   }
   return (
     <main className="guidy-login guidy-signup">
-      <div className="guidy-login-art">
-        <img className="guidy-login-logo" src={Logo} alt="Guidy" />
-        <img className="guidy-login-illustration" src={Illustration} width="1536" height="1024" alt="" />
-        <p className="guidy-auth-caption">Plan your studies. Keep your progress in sight.</p>
-      </div>
+      <AuthBranding />
       <div className="login-form">
         <form ref={formRef} onSubmit={submit} noValidate aria-busy={submitting}>
           <div><p className="guidy-login-intro">Start your journey</p><h1>Create your account</h1><p className="guidy-auth-intro">Join Guidy with your Qatar University email.</p></div>

@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useCallback, useState } from "react";
 import Notebooklist from "./Notebooklist";
 import { guidyDelete, guidyGet } from "../../Api/api.service";
 import apiRoutes from "../../Api/apiRoutes";
 import { Panel, PanelState, Workspace, useWorkspaceData } from "../Workspace";
 
-const loadNotes = async () => {
-  const data = (await guidyGet(apiRoutes.fetchNotebooks)).data;
+const loadNotes = async (focus) => {
+  const data = (await guidyGet(apiRoutes.fetchNotebooks + (focus ? "?focus=" + encodeURIComponent(focus) : ""))).data;
   if (!Array.isArray(data)) throw new Error("Invalid list response");
   return data;
 };
 
 export default function Notes() {
-  const notes = useWorkspaceData(loadNotes);
+  const [params] = useSearchParams();
+  const focus = params.get("note");
+  const load = useCallback(() => loadNotes(focus), [focus]);
+  const notes = useWorkspaceData(load);
   const [failure, setFailure] = useState("");
 
   async function deleteNote(id) {

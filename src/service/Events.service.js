@@ -8,8 +8,8 @@ export async function createEventsApi(body) {
   });
   return response.data;
 }
-export async function getEventsApi() {
-  const response = await Axiosinstance.get("/events/get-events?limit=50&page=1", {
+export async function getEventsApi(focus) {
+  const response = await Axiosinstance.get("/events/get-events?limit=50&page=1" + (focus ? "&focus=" + encodeURIComponent(focus) : ""), {
     headers: {
       "Content-Type": "application/json"
     }

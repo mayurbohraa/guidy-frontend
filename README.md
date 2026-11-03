@@ -4,21 +4,25 @@
 
 This React application was developed through a freelance engagement for a student client's academic project. It provides separate experiences for students, contributors, and administrators and connects to the independently maintained Guidy API.
 
-## Key features
+## Dashboard and account features
 
 | Role | Available features |
 |---|---|
-| Student | Course roadmap and registration, schedule management, calendar events, tasks, notebooks, grades, and approved resources. |
-| Contributor | Resource submission and an overview of the shared approved library, including course coverage and resources by academic year. |
-| Administrator | Pending resource counts, review queue, submission breakdown by term, resource approval or rejection, calendar, and tasks. |
+| Student | Course roadmap and registration, schedule management, calendar events, tasks, notebooks, personal grade entry, and approved resources. |
+| Contributor | Resource submission, personal submission history with review status, and an overview of the shared approved library, including course coverage and resources by academic year. |
+| Administrator | Pending resource counts, review queue, submission breakdown by term, resource approval or rejection, calendar, tasks, and a searchable student and contributor directory. |
 | All roles | Login, profile viewing and contact editing, notifications, and logout. Public signup supports students and contributors. |
 
+- Header search opens matching pages and records available to the signed-in role. Use the arrow keys and Enter, or select a result.
+- Logout opens a confirmation dialog inside the dashboard. Signed-in users can change their password from My Profile.
 - Dashboard summaries use API records, with separate loading, empty, error, and expired-session states.
 - Calendar selection updates the event form; events are sorted and can be filtered by the selected date.
 - My Profile opens inside the dashboard and refreshes the account header after saved changes.
 - The original logo and rose-and-burgundy theme are retained, with a transparent planner illustration on login and signup.
 - Navigation and the header stay in place while dashboard content scrolls. Signup scrolls within its form panel.
 - Field information icons reveal format guidance on hover, keyboard focus, or tap. Hover does not change the icon's colour or background; validation errors remain beside their fields.
+
+Login, signup, and recovery share the same branding panel. Under **My Profile → Account security**, users can reveal and save their recovery code from their signed-in dashboard. Forgot password checks the university email format, verifies the recovery code, and then shows the new-password form. The dashboard header links to the recovery card. Administrators can approve recovery requests and record simulated email delivery in notifications.
 
 ## Live website
 
@@ -77,7 +81,7 @@ REACT_APP_API_URL=http://localhost:4000/api/v1
 
 Restart the development server after changing this value. Production values are embedded at build time; frontend environment files must contain only public configuration.
 
-## Commands and verification
+## Development commands
 
 | Command | Purpose |
 |---|---|
@@ -85,8 +89,6 @@ Restart the development server after changing this value. Production values are 
 | `npm run lint` | Check source files with zero permitted ESLint warnings. |
 | `npm test -- --watchAll=false --runInBand` | Run the regression suite once. |
 | `npm run build` | Generate the production application in `build/`. |
-
-Latest recorded verification, 3 November 2026: **24 tests passed in 10 suites**, lint passed, and the production build passed. Coverage includes form validation, profile edits, request encoding, calendar selection, empty data, retries, and menu behaviour. Browser verification of the updated desktop and mobile layouts and confirmation of the latest hosted deployment remain pending.
 
 ## Project structure
 
@@ -112,9 +114,6 @@ Frontend/
 └── README.md
 ```
 
-## Current limitations
-
-Password recovery displays an availability message; a complete recovery service is not implemented. Header search suggests course names from a static list. Grade entry is available through the API without a dedicated entry screen. Reliable storage of ordinary uploaded resources on serverless hosting requires durable storage in the backend.
 
 ## Credits
 

@@ -1,24 +1,17 @@
-import React, { useEffect } from "react";
-
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-const Logout = () => {
-  const history = useNavigate();
+import {
+  getCurrentUser,
+  getDashboardPath,
+} from "../service/Authentication.service";
+export default function Logout() {
+  const navigate = useNavigate();
   useEffect(() => {
-    localStorage.removeItem("login_status");
-    localStorage.removeItem("token_status");
-  }, []);
-  const deleteLT = e => {
-    e.preventDefault();
-    localStorage.removeItem("login_status");
-    localStorage.removeItem("token_status");
-    history("/");
-  };
-  return (
-    <div className="logout">
-      <h1>Logout Successfull</h1>
-      <button onClick={deleteLT}>Go to Login Page</button>
-    </div>
-  );
-};
-export default Logout;
+    const root = getDashboardPath(getCurrentUser()?.role);
+    navigate(root, {
+      replace: true,
+      state: root !== "/" ? { confirmLogout: true } : null,
+    });
+  }, [navigate]);
+  return <p role="status">Opening account controls…</p>;
+}

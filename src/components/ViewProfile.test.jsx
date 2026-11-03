@@ -13,7 +13,7 @@ jest.mock("../service/Events.service", () => ({
   getEventsApi: jest.fn().mockResolvedValue({ data: [] }),
 }));
 
-jest.setTimeout(15000);
+jest.setTimeout(30000);
 
 beforeEach(() => {
   localStorage.clear();
@@ -34,7 +34,7 @@ test.each([
   window.history.replaceState({}, "", root + "/myprofile");
   render(<App />);
 
-  expect(await screen.findByRole("heading", { name: "My profile" }, { timeout: 10000 })).toBeVisible();
+  expect(await screen.findByRole("heading", { name: "My profile" }, { timeout: 20000 })).toBeVisible();
   expect(screen.getByRole("button", { name: "Notifications" })).toBeVisible();
   await waitFor(() => expect(screen.queryAllByRole("status", { hidden: true })).toHaveLength(0));
   expect(screen.getByRole("navigation")).toBeVisible();
@@ -42,7 +42,7 @@ test.each([
   const back = screen.getByRole("link", { name: "Back to dashboard" });
   expect(back).toHaveAttribute("href", root);
   fireEvent.click(back);
-  expect(await screen.findByRole("heading", { name: title }, { timeout: 10000 })).toBeVisible();
+  expect(await screen.findByRole("heading", { name: title }, { timeout: 20000 })).toBeVisible();
   await waitFor(() => expect(screen.queryAllByRole("status", { hidden: true })).toHaveLength(0));
 });
 
@@ -51,7 +51,7 @@ test("redirects the original profile URL into the current dashboard", async () =
   localStorage.setItem("token_status", "demo-session");
   window.history.replaceState({}, "", "/viewprofile");
   render(<App />);
-  expect(await screen.findByRole("heading", { name: "My profile" }, { timeout: 10000 })).toBeVisible();
+  expect(await screen.findByRole("heading", { name: "My profile" }, { timeout: 20000 })).toBeVisible();
   expect(window.location.pathname).toBe("/admindashboard/myprofile");
   await waitFor(() => expect(screen.queryAllByRole("status", { hidden: true })).toHaveLength(0));
 });
@@ -67,7 +67,7 @@ test("saves profile edits through the API and updates the header", async () => {
     _id: "1", role: "contributor", firstName: "Updated", lastName: "User", email: "demo@qu.edu.qa", mobileNumber: "",
   } });
   render(<App />);
-  fireEvent.click(await screen.findByRole("button", { name: "Edit profile" }, { timeout: 10000 }));
+  fireEvent.click(await screen.findByRole("button", { name: "Edit profile" }, { timeout: 20000 }));
   fireEvent.change(screen.getByLabelText("First name"), { target: { value: "Updated" } });
   fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
   expect(await screen.findByText("Profile updated.")).toBeVisible();

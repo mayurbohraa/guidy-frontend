@@ -1,45 +1,24 @@
-import React from "react";
-
-import { NavLink } from "react-router-dom";
-import Mainlogo from "../Mainlogo";
-const MyRoadmap = () => {
+import { Link } from "react-router-dom";
+import { Panel, Workspace } from "../Workspace";
+export default function MyRoadmap() {
   return (
-    <div className="myroadmap">
-      <Mainlogo />
-      <div className="year-container">
-        <p style={{
-          fontSize: 20
-        }}>Choose Year</p>
-
-        <NavLink
-          className="year-item"
-          to={"/userdashboard/myroadmap/1"}
-        >
-          First Year
-        </NavLink>
-
-        <NavLink
-          className="year-item"
-          to={"/userdashboard/myroadmap/2"}
-        >
-          Second Year
-        </NavLink>
-
-        <NavLink
-          className="year-item"
-          to={"/userdashboard/myroadmap/3"}
-        >
-          Third Year
-        </NavLink>
-
-        <NavLink
-          className="year-item"
-          to={"/userdashboard/myroadmap/4"}
-        >
-          Fourth Year
-        </NavLink>
-      </div>
-    </div>
+    <Workspace
+      title="My roadmap"
+      description="Explore your academic years and choose courses for the next term."
+    >
+      {["First", "Second", "Third", "Fourth"].map((label, index) => (
+        <Panel key={label} title={label + " year"}>
+          <p className="workspace-form-help">
+            Browse Fall and Spring courses for year {index + 1}.
+          </p>
+          <Link
+            className="workspace-button"
+            to={"/userdashboard/myroadmap/" + (index + 1)}
+          >
+            Explore year {index + 1}
+          </Link>
+        </Panel>
+      ))}
+    </Workspace>
   );
-};
-export default MyRoadmap;
+}

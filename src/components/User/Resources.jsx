@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import { Panel, PanelState, Workspace, useWorkspaceData } from "../Workspace";
 
 import { downloadResource, guidyGet } from "../../Api/api.service";
@@ -11,10 +12,39 @@ const loadResources = async () => {
 
 const Resources = () => {
   const request = useWorkspaceData(loadResources);
+  const [params, setParams] = useSearchParams();
+  const search = params.get("search") || "";
+  const visible = request.data?.filter(
+    (item) =>
+      !search || item.resourceName.toLowerCase().includes(search.toLowerCase()),
+  );
   return (
-    <Workspace title="Resources" description="Browse approved learning materials.">
+    <Workspace
+      title="Resources"
+      description="Browse approved learning materials."
+    >
       <Panel title="Approved resources" wide>
-        <PanelState request={request} empty={request.data?.length === 0 && "No resources are available yet."}>
+        {search && (
+          <p className="workspace-form-help">
+            Showing results for “{search}”.{" "}
+            <button
+              type="button"
+              className="workspace-text-button"
+              onClick={() => setParams({})}
+            >
+              Show all resources
+            </button>
+          </p>
+        )}
+        <PanelState
+          request={request}
+          empty={
+            visible?.length === 0 &&
+            (search
+              ? "No matching resources."
+              : "No resources are available yet.")
+          }
+        >
           <div className="workspace-table">
             <table>
               <thead>
@@ -26,7 +56,7 @@ const Resources = () => {
                 </tr>
               </thead>
               <tbody>
-                {request.data?.map((item, index) => {
+                {visible?.map((item, index) => {
                   return (
                     <tr key={item._id}>
                       <td>{index + 1}</td>
@@ -35,9 +65,14 @@ const Resources = () => {
                       <td>
                         <button
                           type="button"
-                          onClick={() => downloadResource(item._id, item.resourceName).catch(() => toast.error("File unavailable"))}
+                          className="workspace-secondary"
+                          onClick={() =>
+                            downloadResource(item._id, item.resourceName).catch(
+                              () => toast.error("File unavailable"),
+                            )
+                          }
                         >
-                          View
+                          Download
                         </button>
                       </td>
                     </tr>

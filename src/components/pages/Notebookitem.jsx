@@ -1,104 +1,71 @@
-import React, { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { UilEdit, UilTrashAlt } from "@iconscout/react-unicons";
 import Editnotebookform from "./Editnotebookform";
 import Popup from "../Popup";
-const Notebookitem = ({
-  notebook,
-  deleteNotebook
-}) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [previousFocusEl, setPreviousFocusEl] = useState(null);
-  const closeEditMode = () => {
-    setIsEditing(false);
-    previousFocusEl?.focus();
-  };
-  const enterEditMode = notebook => {
-    setIsEditing(true);
-    setPreviousFocusEl(document.activeElement);
-  };
-  const [isShown, setIsShown] = useState(false);
-  const handleClick = event => {
-    setIsShown(!isShown);
-  };
+export default function Notebookitem({ notebook, deleteNotebook }) {
+  const [content, setContent] = useState(notebook.notebookContent);
+  const [editing, setEditing] = useState(false);
+  const [shown, setShown] = useState(false);
+  const [params] = useSearchParams();
+  useEffect(() => {
+    if (params.get("note") === notebook._id) setShown(true);
+  }, [params, notebook._id]);
   return (
-    <div className="notebookItem">
-      {isEditing ? <Editnotebookform
-        notebook={notebook}
-        closeEditMode={closeEditMode}
-      /> : <li className="notebook">
-
-        <div className="notebook-group">
-          <label
-            htmlFor={notebook._id}
-            className="label"
-          >
-            <span style={{
-              fontWeight: "bold"
-            }}>Notebook Title:</span>{" "}
-            {notebook.notebookTitle}
-          </label>
-          <br />
-          <label
-            htmlFor={notebook._id}
-            className="label"
-          >
-            <span style={{
-              fontWeight: "bold"
-            }}>Subject:</span>{" "}
-            {notebook.subject?.name}
-          </label>
-          <br />
-          <label
-            htmlFor={notebook._id}
-            className="label"
-          >
-            <span style={{
-              fontWeight: "bold"
-            }}>Notebook Content: </span>{" "}
-
-
-            <button
-              type="button"
-              onClick={handleClick}
-              style={{
-                color: "red"
-              }}
-            >
-              View Note
-            </button>
-            {isShown &&
-              <Popup
-                content={<div>{notebook.notebookContent}</div>}
-                handleClose={handleClick}
-              />
-            }
-          </label>
-        </div>
-
-        <div className="notebook-group">
-          <button
-            className="btn update"
-            aria-label={`Update ${notebook.notebookContent} Notebook`}
-            onClick={() => enterEditMode(notebook)}
-          >
-            <span>
-              <UilEdit />
-            </span>
-          </button>
-
-          <button
-            className="btn delete"
-            aria-label={`Delete ${notebook.notebookContent} Notebook`}
-            onClick={() => deleteNotebook(notebook._id)}
-          >
-            <span>
-              <UilTrashAlt />
-            </span>
-          </button>
-        </div>
-      </li>}
-    </div>
+    <li className="workspace-note-card">
+      <div>
+        <h3>{notebook.notebookTitle || "Untitled notebook"}</h3>
+        <p>
+          {notebook.subject?.name || "Course unavailable"} · Year{" "}
+          {notebook.year || "—"} · {notebook.term || "Term unavailable"}
+        </p>
+      </div>
+      <div className="workspace-actions">
+        <button
+          type="button"
+          className="workspace-secondary"
+          onClick={() => setShown(true)}
+        >
+          View note
+        </button>
+        <button
+          type="button"
+          className="workspace-icon-button"
+          aria-label={"Edit " + notebook.notebookTitle}
+          onClick={() => setEditing(true)}
+        >
+          <UilEdit aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          className="workspace-icon-button"
+          aria-label={"Delete " + notebook.notebookTitle}
+          onClick={() => deleteNotebook(notebook._id)}
+        >
+          <UilTrashAlt aria-hidden="true" />
+        </button>
+      </div>
+      {shown && (
+        <Popup
+          label={notebook.notebookTitle || "Study note"}
+          handleClose={() => setShown(false)}
+          content={
+            <div>
+              <h2>{notebook.notebookTitle}</h2>
+              <p className="workspace-note-content">{content}</p>
+            </div>
+          }
+        />
+      )}
+      {editing && (
+        <Editnotebookform
+          notebook={{ ...notebook, notebookContent: content }}
+          closeEditMode={(value) => {
+            if (typeof value === "string") setContent(value);
+            setEditing(false);
+          }}
+        />
+      )}
+    </li>
   );
-};
-export default Notebookitem;
+}

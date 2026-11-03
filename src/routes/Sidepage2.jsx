@@ -1,3 +1,4 @@
+import CourseDetails from "../components/CourseDetails";
 import ViewProfile from "../components/ViewProfile";
 import React from "react";
 
@@ -8,17 +9,9 @@ import AddResources from "../components/Contributor/AddResources";
 const Sidepage2 = () => {
   return (
     <Routes>
-
-      <Route
-        exact
-        path="/"
-        element={<Dashboard />}
-      />
-      <Route
-        exact
-        path="/addresources"
-        element={<AddResources />}
-      />
+      <Route exact path="/" element={<Dashboard />} />
+      <Route exact path="/addresources" element={<AddResources />} />
+      <Route path="/courses/:courseId" element={<CourseDetails />} />
       <Route path="/myprofile" element={<ViewProfile />} />
     </Routes>
   );

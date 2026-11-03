@@ -1,3 +1,6 @@
+import { useLocation } from "react-router-dom";
+import RecoveryCode from "./RecoveryCode";
+import ChangePassword from "./ChangePassword";
 import FieldHelp from "./FieldHelp";
 import { useEffect, useState } from "react";
 import { getCurrentUser, getDashboardPath, setCurrentUser } from "../service/Authentication.service";
@@ -20,7 +23,16 @@ const loadProfile = async () => {
 };
 
 export default function ViewProfile() {
+  const { hash } = useLocation();
   const profile = useWorkspaceData(loadProfile);
+  useEffect(() => {
+    if (profile.status === "ready" && hash === "#recovery-code") {
+      const section = document.getElementById("recovery-code");
+      section?.focus();
+      section?.scrollIntoView?.({ block: "nearest" });
+    }
+  }, [profile.status, hash]);
+
   const [savedUser, setSavedUser] = useState(null);
   const [editing, setEditing] = useState(false);
   const [status, setStatus] = useState("idle");
@@ -128,6 +140,10 @@ export default function ViewProfile() {
           )}
         </PanelState>
       </Panel>
+      {profile.status === "ready" && <Panel title="Account security" wide><div className="workspace-form-grid">
+        <section className="workspace-course-group"><h3>Password</h3><p>Update the password you use to sign in.</p><ChangePassword /></section>
+        <section className="workspace-course-group" id="recovery-code" tabIndex={-1}><h3>Recovery code</h3><p>Save your private code to reset your password later.</p><RecoveryCode /></section>
+      </div></Panel>}
     </Workspace>
   );
 }

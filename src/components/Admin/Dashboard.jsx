@@ -41,6 +41,8 @@ export default function Dashboard() {
           <li>Approve suitable material or decline the request.</li>
         </ol>
       </Panel>
+      <Panel title="Users" link="/admindashboard/users" action="Open directory"><p>Find student and contributor accounts.</p></Panel>
+      <Panel title="Account recovery" link="/admindashboard/account-recovery" action="Review recovery requests"><p>Review requests and record simulated delivery.</p></Panel>
       <Panel title="Calendar" link="/admindashboard/calender" action="Open calendar"><p>View and manage your events.</p></Panel>
       <Panel title="Tasks" link="/admindashboard/mytasks" action="Open tasks"><p>Manage your personal task list.</p></Panel>
     </Workspace>

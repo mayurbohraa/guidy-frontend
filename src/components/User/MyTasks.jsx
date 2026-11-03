@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Tasklist from "../pages/Tasklist";
 import Addtaskform from "../pages/Addtaskform";
 import { guidyDelete, guidyGet, guidyPost } from "../../Api/api.service";
@@ -13,6 +14,15 @@ const loadTasks = async () => {
 
 export default function MyTasks() {
   const tasks = useWorkspaceData(loadTasks);
+  const [params] = useSearchParams();
+  const focusedTask = params.get("task");
+  useEffect(() => {
+    if (tasks.status !== "ready" || !/^[a-f0-9]{24}$/i.test(focusedTask || ""))
+      return;
+    const input = document.getElementById(focusedTask);
+    input?.focus();
+    input?.closest("li")?.scrollIntoView?.({ block: "center" });
+  }, [tasks.status, focusedTask]);
   const [busy, setBusy] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [error, setError] = useState("");
@@ -35,28 +45,63 @@ export default function MyTasks() {
   }
 
   return (
-    <Workspace title="My tasks" description="Add, organize, and complete your personal tasks.">
+    <Workspace
+      title="My tasks"
+      description="Add, organize, and complete your personal tasks."
+    >
       <Panel title="Task list" wide>
         <div className="workspace-actions workspace-task-toolbar">
-          <Addtaskform disabled={busy} addTask={(task) => updateTasks(() => guidyPost(apiRoutes.createTask, task))} />
-          <button type="button" className="workspace-secondary workspace-danger"
-            disabled={busy || !tasks.data?.length} onClick={() => setConfirm(true)}>Delete all tasks</button>
+          <Addtaskform
+            disabled={busy}
+            addTask={(task) =>
+              updateTasks(() => guidyPost(apiRoutes.createTask, task))
+            }
+          />
+          <button
+            type="button"
+            className="workspace-secondary workspace-danger"
+            disabled={busy || !tasks.data?.length}
+            onClick={() => setConfirm(true)}
+          >
+            Delete all tasks
+          </button>
         </div>
         {confirm && (
           <div className="workspace-confirm">
             <p>Delete every task in this list? This action cannot be undone.</p>
             <div className="workspace-actions">
-              <button type="button" className="workspace-secondary" disabled={busy} onClick={() => setConfirm(false)}>Cancel</button>
-              <button type="button" className="workspace-button" disabled={busy}
-                onClick={() => updateTasks(() => guidyDelete(apiRoutes.deleteAllTask))}>
+              <button
+                type="button"
+                className="workspace-secondary"
+                disabled={busy}
+                onClick={() => setConfirm(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="workspace-button"
+                disabled={busy}
+                onClick={() =>
+                  updateTasks(() => guidyDelete(apiRoutes.deleteAllTask))
+                }
+              >
                 {busy ? "Deleting…" : "Confirm deletion"}
               </button>
             </div>
           </div>
         )}
         {error && <p role="alert">{error}</p>}
-        <PanelState request={tasks} empty={tasks.data?.length === 0 && "No tasks added yet"}>
-          <Tasklist tasks={tasks.data ?? []} deleteTask={(id) => updateTasks(() => guidyDelete(apiRoutes.deleteTask(id)))} />
+        <PanelState
+          request={tasks}
+          empty={tasks.data?.length === 0 && "No tasks added yet"}
+        >
+          <Tasklist
+            tasks={tasks.data ?? []}
+            deleteTask={(id) =>
+              updateTasks(() => guidyDelete(apiRoutes.deleteTask(id)))
+            }
+          />
         </PanelState>
       </Panel>
     </Workspace>

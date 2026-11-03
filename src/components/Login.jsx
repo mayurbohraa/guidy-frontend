@@ -1,14 +1,15 @@
+import AuthBranding from "./AuthBranding";
 import FieldHelp from "./FieldHelp";
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import Logo from "../assets/images/Logo.svg";
-import Illustration from "../assets/images/GuidyLoginIllustrationCutout.png";
 import { getDashboardPath, LoginApi } from "../service/Authentication.service";
 import "react-toastify/dist/ReactToastify.css";
 
 function fieldError(input) {
   if (!input.value.trim()) {
-    return input.name === "email" ? "Enter your email address." : "Enter your password.";
+    return input.name === "email"
+      ? "Enter your email address."
+      : "Enter your password.";
   }
   if (input.name === "email" && input.validity.typeMismatch) {
     return "Enter a valid email address, e.g. name@qu.edu.qa.";
@@ -43,7 +44,9 @@ export default function Login() {
     };
     setErrors(nextErrors);
     setError("");
-    const invalidField = Object.keys(nextErrors).find((name) => nextErrors[name]);
+    const invalidField = Object.keys(nextErrors).find(
+      (name) => nextErrors[name],
+    );
     if (invalidField) {
       form.elements[invalidField].focus();
       return;
@@ -59,8 +62,14 @@ export default function Login() {
         password: fields.get("password"),
       });
       const destination = getDashboardPath(data?.user?.role);
-      if (destination === "/" || typeof data?.token !== "string" || !data.token) {
-        setError("This account could not be signed in. Try again or contact your administrator.");
+      if (
+        destination === "/" ||
+        typeof data?.token !== "string" ||
+        !data.token
+      ) {
+        setError(
+          "This account could not be signed in. Try again or contact your administrator.",
+        );
         return;
       }
       localStorage.setItem("login_status", JSON.stringify(data.user));
@@ -88,41 +97,102 @@ export default function Login() {
 
   return (
     <main className="login guidy-login">
-      <div className="guidy-login-art">
-        <img className="guidy-login-logo" src={Logo} alt="Guidy" />
-        <img className="guidy-login-illustration" src={Illustration} width="1536" height="1024" alt="" />
-      </div>
+      <AuthBranding />
       <div className="login-form">
         <form onSubmit={handleSubmit} aria-busy={submitting} noValidate>
           <div>
             <p className="guidy-login-intro">Welcome back</p>
             <h1>Login</h1>
           </div>
-          {location.state?.accountCreated && <p role="status">Account created. You can now log in.</p>}
+          {location.state?.passwordReset && (
+            <p role="status">
+              Password updated. Sign in with your new password.
+            </p>
+          )}
+          {location.state?.accountCreated && (
+            <p role="status">Account created. You can now log in.</p>
+          )}
           <div className="details">
-            <div className="guidy-auth-field"><label htmlFor="login-email">Email</label>
-              <FieldHelp id="login-email-hint" label="Email" hint="Use your registered university email, e.g. name@qu.edu.qa.">
-              <input id="login-email" type="email" name="email" autoComplete="username" required disabled={submitting}
-                aria-invalid={Boolean(errors.email)} aria-describedby={"login-email-hint" + (errors.email ? " login-email-error" : "")}
-                onBlur={validateField} onChange={clearError} />
+            <div className="guidy-auth-field">
+              <label htmlFor="login-email">Email</label>
+              <FieldHelp
+                id="login-email-hint"
+                label="Email"
+                hint="Use your registered university email, e.g. name@qu.edu.qa."
+              >
+                <input
+                  id="login-email"
+                  type="email"
+                  name="email"
+                  autoComplete="username"
+                  required
+                  disabled={submitting}
+                  aria-invalid={Boolean(errors.email)}
+                  aria-describedby={
+                    "login-email-hint" +
+                    (errors.email ? " login-email-error" : "")
+                  }
+                  onBlur={validateField}
+                  onChange={clearError}
+                />
               </FieldHelp>
-              {errors.email && <span className="guidy-field-error" id="login-email-error">{errors.email}</span>}
+              {errors.email && (
+                <span className="guidy-field-error" id="login-email-error">
+                  {errors.email}
+                </span>
+              )}
             </div>
-            <div className="guidy-auth-field"><label htmlFor="login-password">Password</label>
-              <FieldHelp id="login-password-hint" label="Password" hint="Enter your existing password exactly; passwords are case-sensitive.">
-              <input id="login-password" type="password" name="password" autoComplete="current-password" required disabled={submitting}
-                aria-invalid={Boolean(errors.password)} aria-describedby={"login-password-hint" + (errors.password ? " login-password-error" : "")}
-                onBlur={validateField} onChange={clearError} />
+            <div className="guidy-auth-field">
+              <label htmlFor="login-password">Password</label>
+              <FieldHelp
+                id="login-password-hint"
+                label="Password"
+                hint="Enter your existing password exactly; passwords are case-sensitive."
+              >
+                <input
+                  id="login-password"
+                  type="password"
+                  name="password"
+                  autoComplete="current-password"
+                  required
+                  disabled={submitting}
+                  aria-invalid={Boolean(errors.password)}
+                  aria-describedby={
+                    "login-password-hint" +
+                    (errors.password ? " login-password-error" : "")
+                  }
+                  onBlur={validateField}
+                  onChange={clearError}
+                />
               </FieldHelp>
-              {errors.password && <span className="guidy-field-error" id="login-password-error">{errors.password}</span>}
+              {errors.password && (
+                <span className="guidy-field-error" id="login-password-error">
+                  {errors.password}
+                </span>
+              )}
             </div>
-            <NavLink to="/forgotpassword" className="navforgotpass">Forgot password?</NavLink>
-            {error && <p ref={errorRef} className="guidy-login-error" role="alert" tabIndex={-1}>{error}</p>}
-            <button type="submit" disabled={submitting}>{submitting ? "Signing in…" : "Log in"}</button>
+            <NavLink to="/forgotpassword" className="navforgotpass">
+              Forgot password?
+            </NavLink>
+            {error && (
+              <p
+                ref={errorRef}
+                className="guidy-login-error"
+                role="alert"
+                tabIndex={-1}
+              >
+                {error}
+              </p>
+            )}
+            <button type="submit" disabled={submitting}>
+              {submitting ? "Signing in…" : "Log in"}
+            </button>
           </div>
           <p className="login-navigation">
             Don't have an account?{" "}
-            <NavLink to="/signup" className="navsignup">Create your account</NavLink>
+            <NavLink to="/signup" className="navsignup">
+              Create your account
+            </NavLink>
           </p>
         </form>
       </div>

@@ -31,8 +31,8 @@ https://guidy-frontend-bice.vercel.app/
 
 ## Repositories
 
-- [Frontend repository](https://github.com/mayurbohraa/guidy_frontend)
-- [Companion backend repository and API setup](https://github.com/mayurbohraa/guidy_backend)
+- [Frontend repository](https://github.com/mayurbohraa/guidy-frontend)
+- [Companion backend repository and API setup](https://github.com/mayurbohraa/guidy-backend)
 
 ## Tech stack
 
@@ -49,8 +49,8 @@ React 18, Create React App 5, React Router 6, Axios, React Calendar, Recharts, R
 1. Clone and open the frontend repository:
 
    ```sh
-   git clone https://github.com/mayurbohraa/guidy_frontend.git
-   cd guidy_frontend
+   git clone https://github.com/mayurbohraa/guidy-frontend.git
+   cd guidy-frontend
    ```
 
 2. Install the locked dependencies:

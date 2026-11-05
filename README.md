@@ -90,10 +90,3 @@ src/
 └── assets/           # Styles, images, and branding
 package.json          # Dependencies and commands
 ```
-
-## My Contributions
-
-- Designed and developed the complete frontend.
-- Integrated the backend APIs with the application interface.
-- Planned the project structure, development workflow, and implementation.
-- Deployed the frontend on Vercel.

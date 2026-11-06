@@ -1,14 +1,14 @@
 # Guidy Frontend
 
-## Project Overview
+## Overview
 
 Guidy is a study workspace for course planning, schedules, tasks, notes, grades, and learning resources. Its React interface provides separate workspaces for students, contributors, and administrators, connected to the Guidy API.
 
 ## Project Preview
 
-<img src="public/project-preview.webp" alt="Guidy Frontend application screens and visual identity" width="520">
+<img src="public/project-preview.webp" alt="Guidy Frontend application screens and visual identity" width="100%">
 
-Application screens and visual identity. Branding mockups are presentation concepts.
+Application preview.
 
 ## Key Features
 
